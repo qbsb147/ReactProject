@@ -4,7 +4,7 @@ import { Shine} from '../src/components/styled/Div'
 import styled from 'styled-components'
 import axios from 'axios';
 
-const Main = ({ onToggleTheme }) => {
+const Main = () => {
   const [selectedGenre, setSelectedGenre] = useState('romance');
   const [movies, setMovies] = useState([]);
 
@@ -20,17 +20,17 @@ const Main = ({ onToggleTheme }) => {
   return (
     <Container>
       <GenreList>
-        <ShineButton style={{ width: "250px"}} onClick={()=> setSelectedGenre("action")}>액션</ShineButton>
-        <ShineButton style={{ width: "250px"}} onClick={()=> setSelectedGenre("romance")}>로맨스</ShineButton>
-        <ShineButton style={{ width: "250px"}} onClick={()=> setSelectedGenre("comedy")}>코미디</ShineButton>
-        <ShineButton style={{ width: "250px"}} onClick={()=> setSelectedGenre("documentary")}>다큐</ShineButton>
+        <ShineButton style={{ width: "100%"}} onClick={()=> setSelectedGenre("action")}>액션</ShineButton>
+        <ShineButton style={{ width: "100%"}} onClick={()=> setSelectedGenre("romance")}>로맨스</ShineButton>
+        <ShineButton style={{ width: "100%"}} onClick={()=> setSelectedGenre("comedy")}>코미디</ShineButton>
+        <ShineButton style={{ width: "100%"}} onClick={()=> setSelectedGenre("documentary")}>다큐</ShineButton>
       </GenreList>
 
       <Content>
         {movies
           .filter(movie => movie.genre === selectedGenre)
           .map(movie => (
-            <MovieList key={movie.id}>
+            <MovieList key={movie.id} onClick={() => navigator(`/detail/${movie.id}`)}>
               <Shine style={{ width: "100%",height:"100%", display:"flex"}}>
                 <img style={{height:"100%", width:"250px"}} src={movie.image || "/src/images/default.jpg"} />
                 <Table>
@@ -55,7 +55,7 @@ const Main = ({ onToggleTheme }) => {
                       평점
                     </Td>
                     <Td2>
-                      {movie.title}
+                      {movie.star}
                     </Td2>
                   </Tr>
                   <Tr>
@@ -92,27 +92,28 @@ const Table = styled.table`
   font-size: 20px;
   width:100%;
   margin-left: 20px;
-  color: #eee;
 `
 
 const MovieList = styled.li`
   width:100%;
   height: 200px;
   color: ${({theme}) => theme.text};
-  border: 1px solid #333;
+  border: ${({theme}) => theme.border};
 `
 
 const Container = styled.div`
-  min-width:100%;
+  min-width:600px;
+  width: 800px;
   overflow-x: auto;
 `
 
 const GenreList = styled.div`
   min-width:100%;
   overflow-x: auto;
-  gap: 100px;
   height:60px;
+  gap: 20px;
   display:flex;
+  justify-content: space-between;
 `
 
 const Content = styled.div`

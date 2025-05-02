@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components';
 
-const SingUp = ({ onToggleTheme }) => {
+const SingUp = () => {
   return (
     <Container>
         <JoinForm>

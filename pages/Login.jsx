@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import SignUp from './SignUp'
 import { Link } from 'react-router-dom'
 
-const Login = ({ onToggleTheme }) => {
+const Login = () => {
   return (
     <Container>
       <Head>

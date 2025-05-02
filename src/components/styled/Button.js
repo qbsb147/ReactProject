@@ -15,7 +15,7 @@ export const ShineButton = styled.button`
     /**/
     overflow: hidden;
     color: #00c7ec;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: ${({theme}) => theme.border};
     box-shadow: 0 0 0 0 transparent;
     -webkit-transition: all 0.2s ease-in;
     -moz-transition: all 0.2s ease-in;

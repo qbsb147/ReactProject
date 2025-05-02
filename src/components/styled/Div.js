@@ -11,8 +11,8 @@ export const Shine = styled.div`
         content: '';
         width: 50%;
         height: 100%;
-        background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
-        background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
+        background: ${({theme}) => theme.backgroundLinear};
+        background: ${({theme}) => theme.backgroundLinear2};
         -webkit-transform: skewX(-25deg);
         transform: skewX(-25deg);
     }
