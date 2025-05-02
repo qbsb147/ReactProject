@@ -1,0 +1,37 @@
+import styled, { keyframes } from "styled-components";
+
+export const Shine = styled.div`
+    position: relative;
+    &::before {
+        position: absolute;
+        top: 0;
+        left: -75%;
+        z-index: 2;
+        display: block;
+        content: '';
+        width: 50%;
+        height: 100%;
+        background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
+        background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
+        -webkit-transform: skewX(-25deg);
+        transform: skewX(-25deg);
+    }
+    &:hover::before {
+        -webkit-animation: shine 1.75s;
+        animation: shine 1.75s;
+    }
+    @-webkit-keyframes shine {
+        100% {
+            left: 125%;
+        }
+    }
+    @keyframes shine {
+        100% {
+            left: 125%;
+        }
+    }
+`
+
+export const Card = styled.div`
+    
+`

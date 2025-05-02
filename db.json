@@ -1,0 +1,11 @@
+{
+  "movies": [
+    { "id": 1, "director" : "후치지마 야도후", "title": "첫사랑", "genre": "romance", "content": "알콩달콩한 이야기", "image" : "src/images/poster2.jpg" },
+    { "id": 2, "director" : "후치지마 야도후", "title": "히어로즈", "genre": "romance", "content": "알콩달콩한 이야기", "image" : "src/images/images.jfif"},
+    { "id": 3, "director" : "후치지마 야도후", "title": "자연의 세계", "genre": "documentary", "content": "알콩달콩한 이야기" },
+    { "id": 4, "director" : "후치지마 야도후", "title": "자연의 세계", "genre": "documentary", "content": "알콩달콩한 이야기" },
+    { "id": 5, "director" : "후치지마 야도후", "title": "자연의 세계", "genre": "documentary", "content": "알콩달콩한 이야기" },
+    { "id": 6, "director" : "후치지마 야도후", "title": "자연의 세계", "genre": "documentary", "content": "알콩달콩한 이야기" },
+    { "id": 7, "director" : "후치지마 야도후", "title": "자연의 세계", "genre": "documentary", "content": "알콩달콩한 이야기" }
+  ]
+}
