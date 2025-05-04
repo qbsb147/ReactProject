@@ -1,9 +1,49 @@
-import React from 'react'
+import axios from 'axios';
+import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import SignUp from './SignUp'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { toast } from 'react-toastify';
+
+const schema = yup.object().shape({
+  userID: yup.string().required('아이디를 입력하세요'),
+  password: yup.string().min(6, '비밀번호는 최소 6자 이상이어야 합니다.').required('비밀번호를 입력해주세요.'),
+});
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: 'onChange',
+  });
+
+  const onSubmit = async (data) => {
+    let loginUser = null;
+    try {
+      const userList = await axios.get('http://localhost:3001/users');
+      loginUser = userList.data.find((user) => user.userID === data.userID);
+    } catch (error) {
+      toast.error('로그인에 실패했습니다. 아이디를 확인해주세요.');
+    }
+    if (String(loginUser.password) === String(data.password)) {
+      sessionStorage.setItem('loginUser', JSON.stringify(loginUser));
+      navigate('/', {
+        state: {
+          toastMessage: `로그인에 성공하였습니다!`,
+        },
+      });
+    } else {
+      toast.error('로그인에 실패했습니다, 비밀번호가 다릅니다.');
+    }
+  };
+
   return (
     <Container>
       <Head>
@@ -11,13 +51,15 @@ const Login = () => {
         <h2>Sign In</h2>
         <AnimateRight />
       </Head>
-      <LoginForm>
-          <Input type="text" placeholder="UserID"/>
-          <Input type="password" placeholder="Password"/>
-          <Nav>
-            <Button type="submit">Login</Button>
-            <StyledLink to="/signUp">Sign Up</StyledLink>
-          </Nav>
+      <LoginForm onSubmit={handleSubmit(onSubmit)}>
+        <Input type="text" placeholder="UserID" {...register('userID')} />
+        {errors.userID && <ErrorText>{errors.userID.message}</ErrorText>}
+        <Input type="password" placeholder="Password" {...register('password')} />
+        {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
+        <Nav>
+          <Button type="submit">Login</Button>
+          <StyledLink to="/signUp">Sign Up</StyledLink>
+        </Nav>
       </LoginForm>
     </Container>
   );
@@ -25,10 +67,15 @@ const Login = () => {
 
 export default Login;
 
+const ErrorText = styled.p`
+  font-size: 12px;
+  color: red;
+`;
+
 const Nav = styled.div`
-  display:flex;
+  display: flex;
   justify-content: space-between;
-`
+`;
 
 const StyledLink = styled(Link)`
   display: flex;
@@ -36,8 +83,8 @@ const StyledLink = styled(Link)`
   font-size: 17px;
   font-weight: 600;
   justify-content: center;
-  align-items:center;
-`
+  align-items: center;
+`;
 
 const beepbeep = keyframes`
   0% {
@@ -80,15 +127,15 @@ const beepbeepReverse = keyframes`
 
 const Container = styled.div`
   position: relative;
-`
+`;
 
 const Head = styled.div`
   top: -200px;
-  left:0px;
+  left: 0px;
   width: 400px;
   padding: 1em;
   position: relative;
-`
+`;
 const AnimateLeft = styled.div`
   background: yellow;
   width: 50px;
@@ -99,7 +146,7 @@ const AnimateLeft = styled.div`
   bottom: 0;
   margin: auto;
   animation: ${beepbeep} 3s ease-in infinite;
-  border: 1px dotted #524f56; /* $base-color */
+  border: 1px dotted ${({ theme }) => theme.base}; /* $base-color */
 
   &::before {
     content: '';
@@ -126,7 +173,7 @@ const AnimateRight = styled.div`
   bottom: 0;
   margin: auto;
   animation: ${beepbeepReverse} 3s ease-in infinite;
-  border: 1px dotted #524f56; /* $base-color */
+  border: 1px dotted ${({ theme }) => theme.base}; /* $base-color */
 
   &::before {
     content: '';
@@ -142,7 +189,6 @@ const AnimateRight = styled.div`
   }
 `;
 
-
 const rotateWaves = keyframes`
   from {
     transform: rotate(0deg);
@@ -150,10 +196,9 @@ const rotateWaves = keyframes`
   to {
     transform: rotate(360deg);
   }
-`
+`;
 
-
-const LoginForm = styled.div`
+const LoginForm = styled.form`
   overflow: hidden;
   background-color: white;
   padding: 40px 30px 30px 30px;
@@ -163,7 +208,9 @@ const LoginForm = styled.div`
   left: 50%;
   width: 400px;
   transform: translate(-50%, -50%);
-  transition: transform 300ms, box-shadow 300ms;
+  transition:
+    transform 300ms,
+    box-shadow 300ms;
   box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
 
   &::before,
@@ -192,36 +239,36 @@ const LoginForm = styled.div`
     background-color: rgba(0, 0, 0, 0.2);
     animation: ${rotateWaves} 7s infinite linear;
   }
-`
+`;
 
 const Input = styled.input`
-    font-family: var(--font-asap);
-    display: block;
-    border-radius: 5px;
-    font-size: 16px;
-    background: white;
-    width: 100%;
-    border: 1px solid #eee;
-    padding: 10px 10px;
-    margin: 15px -10px;
-`
+  font-family: var(--font-asap);
+  display: block;
+  border-radius: 5px;
+  font-size: 16px;
+  background: white;
+  width: 100%;
+  border: 1px solid #eee;
+  padding: 10px 10px;
+  margin: 5px -10px;
+`;
 
-const Button = styled.div`
-    font-family: var(--font-asap);
-    cursor: pointer;
-    color: #fff;
-    font-size: 16px;
-    text-transform: uppercase;
-    width: 80px;
-    border: 0;
-    padding: 10px 0;
-    margin-top: 10px;
-    margin-left: -5px;
-    border-radius: 5px;
-    background-color: rgb(8, 189, 212);
-    transition: background-color 300ms;
-    
-    &:hover {
-      background-color: rgb(8, 205, 212);
-    }
-`
+const Button = styled.button`
+  font-family: var(--font-asap);
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  width: 80px;
+  border: 0;
+  padding: 10px 0;
+  margin-top: 10px;
+  margin-left: -5px;
+  border-radius: 5px;
+  background-color: rgb(8, 189, 212);
+  transition: background-color 300ms;
+
+  &:hover {
+    background-color: rgb(8, 205, 212);
+  }
+`;

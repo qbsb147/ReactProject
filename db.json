@@ -1,11 +1,323 @@
 {
   "movies": [
-    { "id": 1, "director" : "후치지마 야도후", "star" : 3.4, "title": "첫사랑", "genre": "romance", "content": "알콩달콩한 이야기", "image" : "src/images/poster2.jpg" },
-    { "id": 2, "director" : "후치지마 야도후", "star" : 3.4, "title": "히어로즈", "genre": "romance", "content": "알콩달콩한 이야기", "image" : "src/images/images.jfif"},
-    { "id": 3, "director" : "후치지마 야도후", "star" : 3.4, "title": "자연의 세계", "genre": "documentary", "content": "알콩달콩한 이야기" },
-    { "id": 4, "director" : "후치지마 야도후", "star" : 3.4, "title": "자연의 세계", "genre": "documentary", "content": "알콩달콩한 이야기" },
-    { "id": 5, "director" : "후치지마 야도후", "star" : 3.4, "title": "자연의 세계", "genre": "documentary", "content": "알콩달콩한 이야기" },
-    { "id": 6, "director" : "후치지마 야도후", "star" : 3.4, "title": "자연의 세계", "genre": "documentary", "content": "알콩달콩한 이야기" },
-    { "id": 7, "director" : "후치지마 야도후", "star" : 3.4, "title": "자연의 세계", "genre": "documentary", "content": "알콩달콩한 이야기" }
+    {
+      "id": "1",
+      "director": "후치지마 야도후",
+      "star": 3.4,
+      "title": "첫사랑",
+      "genre": "romance",
+      "content": "알콩달콩한 이야기",
+      "image": "src/images/poster2.jpg"
+    },
+    {
+      "id": "2",
+      "director": "후치지마 야도후",
+      "star": 3.4,
+      "title": "히어로즈",
+      "genre": "romance",
+      "content": "알콩달콩한 이야기",
+      "image": "src/images/images.jfif"
+    },
+    {
+      "id": "3",
+      "director": "후치지마 야도후",
+      "star": 3.4,
+      "title": "자연의 세계",
+      "genre": "documentary",
+      "content": "알콩달콩한 이야기"
+    },
+    {
+      "id": "4",
+      "director": "후치지마 야도후",
+      "star": 3.4,
+      "title": "자연의 세계",
+      "genre": "documentary",
+      "content": "알콩달콩한 이야기"
+    },
+    {
+      "id": "5",
+      "director": "후치지마 야도후",
+      "star": 3.4,
+      "title": "자연의 세계",
+      "genre": "documentary",
+      "content": "알콩달콩한 이야기"
+    },
+    {
+      "id": "6",
+      "director": "후치지마 야도후",
+      "star": 3.4,
+      "title": "자연의 세계",
+      "genre": "documentary",
+      "content": "알콩달콩한 이야기"
+    },
+    {
+      "id": "7",
+      "director": "후치지마 야도후",
+      "star": 3.4,
+      "title": "자연의 세계",
+      "genre": "documentary",
+      "content": "알콩달콩한 이야기"
+    }
+  ],
+  "users": [
+    {
+      "userNo": 1,
+      "userName": "최예찬",
+      "userID": "qwer1234",
+      "password": 123456,
+      "nickName": "찬차니",
+      "phone": "010-1111-5678",
+      "id": "e4f1"
+    },
+    {
+      "userNo": 2,
+      "userName": "김철수",
+      "userID": "user1",
+      "password": 123456,
+      "nickName": "철수짱",
+      "phone": "010-1111-0001",
+      "id": "477b"
+    },
+    {
+      "userNo": 3,
+      "userName": "이영희",
+      "userID": "user2",
+      "password": 123456,
+      "nickName": "영희짱",
+      "phone": "010-1111-0002",
+      "id": "fa55"
+    },
+    {
+      "userNo": 4,
+      "userName": "박민수",
+      "userID": "user3",
+      "password": 123456,
+      "nickName": "민수짱",
+      "phone": "010-1111-0003",
+      "id": "dfa6"
+    },
+    {
+      "userNo": 5,
+      "userName": "정수지",
+      "userID": "user4",
+      "password": 123456,
+      "nickName": "수지짱",
+      "phone": "010-1111-0004",
+      "id": "6940"
+    },
+    {
+      "userNo": 6,
+      "userName": "최동욱",
+      "userID": "user5",
+      "password": 123456,
+      "nickName": "동욱짱",
+      "phone": "010-1111-0005",
+      "id": "5ab8"
+    },
+    {
+      "userNo": 7,
+      "userName": "한예진",
+      "userID": "user6",
+      "password": 123456,
+      "nickName": "예진짱",
+      "phone": "010-1111-0006",
+      "id": "2bbe"
+    },
+    {
+      "userNo": 8,
+      "userName": "오진우",
+      "userID": "user7",
+      "password": 123456,
+      "nickName": "진우짱",
+      "phone": "010-1111-0007",
+      "id": "532b"
+    },
+    {
+      "userNo": 9,
+      "userName": "장서현",
+      "userID": "user8",
+      "password": 123456,
+      "nickName": "서현짱",
+      "phone": "010-1111-0008",
+      "id": "49b4"
+    },
+    {
+      "userNo": 10,
+      "userName": "윤도현",
+      "userID": "user9",
+      "password": 123456,
+      "nickName": "도현짱",
+      "phone": "010-1111-0009",
+      "id": "1086"
+    },
+    {
+      "userNo": 11,
+      "userName": "신지민",
+      "userID": "user10",
+      "password": 123456,
+      "nickName": "지민짱",
+      "phone": "010-1111-0010",
+      "id": "3eb2"
+    },
+    {
+      "userNo": 12,
+      "userName": "백승호",
+      "userID": "user11",
+      "password": 123456,
+      "nickName": "승호짱",
+      "phone": "010-1111-0011",
+      "id": "be63"
+    },
+    {
+      "userNo": 13,
+      "userName": "서지수",
+      "userID": "user12",
+      "password": 123456,
+      "nickName": "지수짱",
+      "phone": "010-1111-0012",
+      "id": "05cf"
+    },
+    {
+      "userNo": 14,
+      "userName": "강민재",
+      "userID": "user13",
+      "password": 123456,
+      "nickName": "민재짱",
+      "phone": "010-1111-0013",
+      "id": "f40b"
+    },
+    {
+      "userNo": 15,
+      "userName": "김서윤",
+      "userID": "user14",
+      "password": 123456,
+      "nickName": "서윤짱",
+      "phone": "010-1111-0014",
+      "id": "ed84"
+    },
+    {
+      "userNo": 16,
+      "userName": "이준호",
+      "userID": "user15",
+      "password": 123456,
+      "nickName": "준호짱",
+      "phone": "010-1111-0015",
+      "id": "ed31"
+    },
+    {
+      "userNo": 17,
+      "userName": "조하은",
+      "userID": "user16",
+      "password": 123456,
+      "nickName": "하은짱",
+      "phone": "010-1111-0016",
+      "id": "535e"
+    },
+    {
+      "userNo": 18,
+      "userName": "임유진",
+      "userID": "user17",
+      "password": 123456,
+      "nickName": "유진짱",
+      "phone": "010-1111-0017",
+      "id": "1440"
+    },
+    {
+      "userNo": 19,
+      "userName": "배도현",
+      "userID": "user18",
+      "password": 123456,
+      "nickName": "도현짱",
+      "phone": "010-1111-0018",
+      "id": "b63b"
+    },
+    {
+      "userNo": 20,
+      "userName": "문하늘",
+      "userID": "user19",
+      "password": 123456,
+      "nickName": "하늘짱",
+      "phone": "010-1111-0019",
+      "id": "1289"
+    },
+    {
+      "userNo": 21,
+      "userName": "송태훈",
+      "userID": "user20",
+      "password": 123456,
+      "nickName": "태훈짱",
+      "phone": "010-1111-0020",
+      "id": "bbd8"
+    },
+    {
+      "id": "d8a4",
+      "userName": "정다정",
+      "userID": "ㅁㄴㅇㅁㄴㅇ",
+      "password": "asdfqwer",
+      "passwordCheck": "asdfqwer",
+      "nickName": "asdasd",
+      "phone": "010-1111-1111",
+      "userNo": 1746334090388
+    },
+    {
+      "id": "194c",
+      "userName": "ㅁㄴㅇㄹㄴㅁ",
+      "userID": "ㅁㄴㅇㄻㄴㅇ",
+      "password": "asdfasdf",
+      "passwordCheck": "asdfasdf",
+      "nickName": "qweqw",
+      "phone": "010-6640-8235",
+      "userNo": 1746335197962
+    },
+    {
+      "id": "60fa",
+      "userName": "ㅁㄴㅇㄹㄴㅁ",
+      "userID": "ㅁㄴㅇㄻㄴㅇ",
+      "password": "asdfasdf",
+      "passwordCheck": "asdfasdf",
+      "nickName": "qweqw",
+      "phone": "010-6640-8235",
+      "userNo": 1746335206172
+    },
+    {
+      "id": "73e0",
+      "userName": "ㅁㄴㅇㄹㄴㅁ",
+      "userID": "ㅁㄴㅇㄻㄴㅇ",
+      "password": "asdfasdf",
+      "passwordCheck": "asdfasdf",
+      "nickName": "qweqw",
+      "phone": "010-6640-8235",
+      "userNo": 1746335441222
+    },
+    {
+      "id": "1eac",
+      "userName": "ㅁㄴㅇㅁㄴ",
+      "userID": "ㅁㄴㅇ",
+      "password": "asdasd",
+      "passwordCheck": "asdasd",
+      "nickName": "123456",
+      "phone": "010-1111-1111",
+      "userNo": 1746335508413
+    },
+    {
+      "id": "3e90",
+      "userName": "정다정",
+      "userID": "ㅁㄴㅇㅁㄴㅇ",
+      "password": "qweqwe",
+      "passwordCheck": "qweqwe",
+      "nickName": "asdasd",
+      "phone": "010-6640-8235",
+      "userNo": 1746335540006
+    },
+    {
+      "id": "d35e",
+      "userName": "ㅁㄴㅇ",
+      "userID": "ㅁㄴㅇ",
+      "password": "qweqwe",
+      "passwordCheck": "qweqwe",
+      "nickName": "asdasd",
+      "phone": "010-1111-1111",
+      "userNo": 1746337717854
+    }
   ]
 }

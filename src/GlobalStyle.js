@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     overflow-x: auto;
+    overflow-y: hidden;
     width:100%;
     font-family: 'Pretendard', 'Segoe UI', sans-serif;
     background-color: ${({ theme }) => theme.background};
@@ -33,6 +34,18 @@ const GlobalStyle = createGlobalStyle`
   list-style: none;   
   margin: 0;          
   padding: 0;         
+}
+::-webkit-scrollbar {
+    width: 8px;
+    height: 5px;  
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(52, 152, 219);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(52, 152, 219, .1); 
 }
 `;
 

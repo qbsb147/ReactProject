@@ -1,41 +1,46 @@
-import { useState } from 'react'
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import { Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
 import { darkTheme, lightTheme } from './themes';
 import GlobalStyle from './GlobalStyle';
 import styled from 'styled-components';
-import './App.css'
-import Login from '../pages/Login'
-import { ThemeProvider } from 'styled-components'
-import SignUp from '../pages/SignUp'
-import Main from '../pages/Main'
-import Sidebar from '../pages/Sidebar'
-import MovieDetail from '../pages/MovieDetail'
+import './App.css';
+import Login from '../pages/Login';
+import { ThemeProvider } from 'styled-components';
+import SignUp from '../pages/SignUp';
+import Main from '../pages/Main';
+import Sidebar from '../pages/Sidebar';
+import MovieDetail from '../pages/MovieDetail';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const toggleTheme = () => setIsDark(!isDark);
   const apiUrl = import.meta.env.VITE_API_URL;
 
   return (
     <>
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-      <GlobalStyle />
-      <Router>
-          <Sidebar onToggleTheme={toggleTheme}/>
-          <div>
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <GlobalStyle />
+        <Router>
+          <Sidebar onToggleTheme={toggleTheme} />
+          <Center>
             <Routes>
-              <Route path='/login' element={<Login/>} />
-              <Route path='/signUp' element={<SignUp/>} />
-              <Route path='/' element={<Main/>} />
-              <Route path="/movieDetail/:id" element={<MovieDetail/>}/>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signUp" element={<SignUp />} />
+              <Route path="/" element={<Main />} />
+              <Route path="/movieDetail/:id" element={<MovieDetail />} />
             </Routes>
-          </div>
-          <div style={{width:"200px"}}>
-          </div>
-      </Router>
-    </ThemeProvider>
+          </Center>
+          <ToastContainer />
+        </Router>
+      </ThemeProvider>
     </>
-  )
+  );
 }
 
-export default App
+const Center = styled.div`
+  margin-left: 200px;
+`;
+
+export default App;

@@ -1,45 +1,90 @@
-import React from 'react'
+import axios from 'axios';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+const schema = yup.object().shape({
+  userName: yup.string().required('이름을 입력하세요'),
+  userID: yup.string().required('아이디를 입력하세요'),
+  password: yup.string().min(6, '비밀번호는 최소 6자 이상이어야 합니다.').required('비밀번호을 입력하세요'),
+  passwordCheck: yup
+    .string()
+    .oneOf([yup.ref('password'), null], '비밀번호가 일치하지 않습니다.')
+    .required('비밀번호 확인을 입력하세요.'),
+  nickName: yup.string().required('닉네임을 설정해주세요.'),
+  phone: yup
+    .string()
+    .matches(/^01[0-9]-\d{3,4}-\d{4}$/, '전화번호가 유효하지 않습니다.')
+    .required('전화번호를 입력하세요.'),
+});
 
 const SingUp = () => {
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: 'onChange',
+  });
+
+  const onSubmit = async (data) => {
+    try {
+      const userData = {
+        ...data,
+        userNo: Date.now(),
+      };
+      await axios.post('http://localhost:3001/users', userData);
+      navigate('/login', {
+        state: {
+          toastMessage: `환영합니다! ${data.userName}님`,
+        },
+      });
+    } catch (error) {
+      toast.error('회원가입에 실패했습니다. 재시도해주세요');
+    }
+  };
+
   return (
-    <Container>
-        <JoinForm>
-            <Head>회원가입</Head>
-            <Alert>fasd</Alert>
-            <Input type="text" placeholder="Username"/>
-            <ID>
-                <Input type="text" placeholder="UserId"/>
-                <Check>중복확인</Check>
-            </ID>
-            <Input type="password" placeholder="Password"/>
-            <Input type="text" placeholder="PasswordCheck"/>
-            <Input type="password" placeholder="NickName"/>
-            <Input type="password" placeholder="Phone"/>
-            <Button type="submit">JOIN</Button>
-        </JoinForm>
-    </Container>
-  )
-}
+    <JoinForm onSubmit={handleSubmit(onSubmit)}>
+      <Head>회원가입</Head>
+      <Input type="text" placeholder="UserName" {...register('userName')} />
+      {errors.userName && <ErrorText>{errors.userName.message}</ErrorText>}
+      <ID>
+        <Input type="text" placeholder="UserId" {...register('userID')} />
+        <Check type="button">중복확인</Check>
+      </ID>
+      {errors.userID && <ErrorText>{errors.userID.message}</ErrorText>}
+      <Input type="password" placeholder="Password" {...register('password')} />
+      {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
+      <Input type="password" placeholder="PasswordCheck" {...register('passwordCheck')} />
+      {errors.passwordCheck && <ErrorText>{errors.passwordCheck.message}</ErrorText>}
+      <Input type="text" placeholder="NickName" {...register('nickName')} />
+      {errors.nickName && <ErrorText>{errors.nickName.message}</ErrorText>}
+      <Input type="text" placeholder="Phone" {...register('phone')} />
+      {errors.phone && <ErrorText>{errors.phone.message}</ErrorText>}
+      <Submit type="submit">JOIN</Submit>
+    </JoinForm>
+  );
+};
 
 export default SingUp;
 
-const Alert = styled.div`
-    font-size:15px;
-    color:#333;
-    text-align: left;
-`
-
-const Container = styled.div`
-    display:flex;
-    flex-direction: column;
-`
+const ErrorText = styled.p`
+  font-size: 12px;
+  color: red;
+`;
 
 const Head = styled.div`
-    font-size: 40px;
-    font-weight: 700;
-    color:#888;
-`
+  font-size: 40px;
+  font-weight: 700;
+  color: #777;
+`;
 
 const rotateWaves = keyframes`
   from {
@@ -48,18 +93,19 @@ const rotateWaves = keyframes`
   to {
     transform: rotate(360deg);
   }
-`
+`;
 
-
-const JoinForm = styled.div`
+const JoinForm = styled.form`
   overflow: hidden;
   background-color: white;
   padding: 40px 30px 30px 30px;
   border-radius: 10px;
   width: 400px;
-  position : relative;
+  position: relative;
   transform: translate(0, 0);
-  transition: transform 300ms, box-shadow 300ms;
+  transition:
+    transform 300ms,
+    box-shadow 300ms;
   box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
 
   &::before,
@@ -77,74 +123,71 @@ const JoinForm = styled.div`
 
   &::before {
     left: 35%;
-    bottom: -95%;
+    bottom: -85%;
     background-color: rgba(0, 0, 0, 0.15);
     animation: ${rotateWaves} 6s infinite linear;
   }
 
   &::after {
     left: 30%;
-    bottom: -90%;
+    bottom: -80%;
     background-color: rgba(0, 0, 0, 0.2);
     animation: ${rotateWaves} 7s infinite linear;
   }
-`
+`;
 
 const Input = styled.input`
-    font-family: var(--font-asap);
-    display: block;
-    border-radius: 5px;
-    font-size: 16px;
-    background: white;
-    width: 100%;
-    border: 1px solid #eeeeee;
-    padding: 10px 10px;
-    margin: 15px -10px;
-`
+  font-family: var(--font-asap);
+  display: block;
+  border-radius: 5px;
+  font-size: 16px;
+  background: white;
+  width: 100%;
+  border: 1px solid #eeeeee;
+  padding: 10px 10px;
+  margin: 5px -10px;
+`;
 
 const ID = styled.div`
-    display:flex;
-    width : 100%;
-    height: 50px;
-    margin: 0px -10px;
-    gap:20px;
-    > input{
-        width : calc(100% - 100px);
-        margin: 0px;
-    }
-`
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  > input {
+    width: calc(100% - 100px);
+  }
+`;
 
 const Check = styled.button`
-    font-size: 15px;
-    padding:2px;
-    width:90px;
-    height: 50px;
-    font-weight: 500;
-    background: #eee;
-    border-radius: 8px;
+  font-size: 15px;
+  margin: 5px 0px;
+  padding: 2px;
+  width: 90px;
+  font-weight: 500;
+  background: #eee;
+  border-radius: 8px;
 
-    &:hover{
-        background: rgb(8, 189, 212);
-        color: #fff;
-    }
-`
-
-const Button = styled.div`
-    font-family: var(--font-asap);
-    cursor: pointer;
+  &:hover {
+    background: rgb(8, 189, 212);
     color: #fff;
-    font-size: 16px;
-    text-transform: uppercase;
-    width: 80px;
-    border: 0;
-    padding: 10px 0;
-    margin-top: 10px;
-    margin-left: -5px;
-    border-radius: 5px;
-    background-color: rgb(8, 189, 212);
-    transition: background-color 300ms;
-    
-    &:hover {
-      background-color: rgb(8, 205, 212);
-    }
-`
+  }
+`;
+
+const Submit = styled.button`
+  font-family: var(--font-asap);
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  text-transform: uppercase;
+  width: 80px;
+  border: 0;
+  padding: 10px 0;
+  margin-top: 10px;
+  margin-left: -5px;
+  border-radius: 5px;
+  background-color: rgb(8, 189, 212);
+  transition: background-color 300ms;
+
+  &:hover {
+    background-color: rgb(8, 205, 212);
+  }
+`;
