@@ -2,7 +2,7 @@ export const lightTheme = {
   background: '#ffffff',
   text: '#4f4f4f',
   primary: '#3498db',
-  faint: '#eee',
+  faint: '#ddd',
   border: '1px solid #ddd',
 
   contrasting00: 'rgba(0, 0, 0, 0)',
@@ -18,7 +18,7 @@ export const lightTheme = {
 export const darkTheme = {
   background: '#1e1e1e',
   text: '#f1f1f1',
-  primary: '#9b59b5',
+  primary: '#3498db',
   faint: '#333',
   border: '1px solid #333',
 

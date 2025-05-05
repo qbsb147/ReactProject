@@ -31,22 +31,32 @@ const GlobalStyle = createGlobalStyle`
   }
 
   ul, li {
-  list-style: none;   
-  margin: 0;          
-  padding: 0;         
-}
-::-webkit-scrollbar {
-    width: 8px;
-    height: 5px;  
-}
-::-webkit-scrollbar-thumb {
-    background: rgba(52, 152, 219);
-    border-radius: 10px;
-}
+    list-style: none;   
+    margin: 0;          
+    padding: 0;         
+  }
+  ::-webkit-scrollbar {
+      width: 8px;
+      height: 7px;  
+  }
+  ::-webkit-scrollbar-thumb {
+      background: rgba(52, 152, 219);
+      border-radius: 10px;
+  }
 
-::-webkit-scrollbar-track {
-    background: rgba(52, 152, 219, .1); 
-}
+  ::-webkit-scrollbar-track {
+      background: rgba(52, 152, 219, .1); 
+  }
+  .swal2-popup {
+    background: ${({ theme }) => theme.background};
+    border: 1px solid ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.text};
+  }
+  
+  .swal2-actions {
+    display: flex;
+    gap: 20px;
+  }
 `;
 
 export default GlobalStyle;

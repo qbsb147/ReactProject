@@ -12,6 +12,9 @@ import Sidebar from '../pages/Sidebar';
 import MovieDetail from '../pages/MovieDetail';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import MyInfo from '../pages/MyInfo';
+import UserUpdate from '../pages/userUpdate';
 
 function App() {
   const [isDark, setIsDark] = useState(true);
@@ -30,6 +33,8 @@ function App() {
               <Route path="/signUp" element={<SignUp />} />
               <Route path="/" element={<Main />} />
               <Route path="/movieDetail/:id" element={<MovieDetail />} />
+              <Route path="/myInfo" element={<MyInfo />} />
+              <Route path="/userUpdate" element={<UserUpdate />} />
             </Routes>
           </Center>
           <ToastContainer />

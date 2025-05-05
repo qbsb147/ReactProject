@@ -6,6 +6,9 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
+import UserStore from '../store/UserStore';
+
+const useUserStore = UserStore;
 
 const schema = yup.object().shape({
   userID: yup.string().required('아이디를 입력하세요'),
@@ -27,13 +30,13 @@ const Login = () => {
   const onSubmit = async (data) => {
     let loginUser = null;
     try {
-      const userList = await axios.get('http://localhost:3001/users');
-      loginUser = userList.data.find((user) => user.userID === data.userID);
+      const user = await axios.get(`http://localhost:3001/users?userID=${data.userID}`);
+      loginUser = user.data;
     } catch (error) {
       toast.error('로그인에 실패했습니다. 아이디를 확인해주세요.');
     }
-    if (String(loginUser.password) === String(data.password)) {
-      sessionStorage.setItem('loginUser', JSON.stringify(loginUser));
+    if (loginUser[0].password === data.password) {
+      useUserStore.setState({ loginUser: loginUser[0] });
       navigate('/', {
         state: {
           toastMessage: `로그인에 성공하였습니다!`,

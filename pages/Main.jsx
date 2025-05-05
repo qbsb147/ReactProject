@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { ShineButton } from '../src/components/styled/Button';
 import styled from 'styled-components';
-import axios from 'axios';
 import MovieCard from './MovieCard';
+import useMovieStore from '../store/MovieStore';
+import { RingLoader } from 'react-spinners';
+import { css } from '@emotion/react';
 
 const Main = () => {
+  const { movies, error, loading, getMovies } = useMovieStore();
   const [selectedGenre, setSelectedGenre] = useState('romance');
-  const [movies, setMovies] = useState([]);
-
-  const getTodos = async () => {
-    const res = await axios.get('http://localhost:3001/movies');
-    setMovies(res.data);
-  };
 
   useEffect(() => {
-    getTodos();
-  });
+    getMovies();
+  }, [getMovies]);
 
   return (
     <Container>
@@ -35,17 +32,33 @@ const Main = () => {
       </GenreList>
 
       <Content>
-        {movies
-          .filter((movie) => movie.genre === selectedGenre)
-          .map((movie) => (
-            <MovieList key={movie.id} onClick={() => navigator(`/detail/${movie.id}`)}>
-              <MovieCard movie={movie} />
-            </MovieList>
-          ))}
+        {loading && movies.length === 0 ? (
+          <LoadingBox>
+            <RingLoader color="#3498db" size={300} />
+          </LoadingBox>
+        ) : !error ? (
+          movies
+            .filter((movie) => movie.genre === selectedGenre)
+            .map((movie) => (
+              <MovieList key={movie.id}>
+                <MovieCard movie={movie} onClick={() => navigator(`/detail/${movie.id}`)} />
+              </MovieList>
+            ))
+        ) : (
+          '에러발생'
+        )}
       </Content>
     </Container>
   );
 };
+
+const LoadingBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
 
 const MovieList = styled.li`
   width: 100%;

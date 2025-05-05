@@ -3,12 +3,15 @@ import styled, { keyframes } from 'styled-components';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FaMoon, FaSun } from 'react-icons/fa';
+import Swal from 'sweetalert2';
+import UserStore from '../store/UserStore';
+
+const useUserStore = UserStore;
 
 const Sidebar = ({ onToggleTheme }) => {
   const location = useLocation();
-  const [login, setLogin] = useState(false);
-  const loginUser = JSON.parse(sessionStorage.getItem('loginUser')) || null;
   const navigate = useNavigate();
+  const loginUser = useUserStore((state) => state.loginUser);
 
   useEffect(() => {
     if (location.state?.toastMessage) {
@@ -21,7 +24,38 @@ const Sidebar = ({ onToggleTheme }) => {
   }, [location.state?.toastMessage]);
 
   const handleLogout = () => {
-    sessionStorage.removeItem('loginUser');
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger',
+      },
+      buttonsStyling: false,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        title: '정말 로그아웃하시겠습니까?',
+        text: '로그아웃하고 오프라인으로 전환합니다.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '네, 로그아웃할래요!',
+        cancelButtonText: '아니요, 괜찮습니다.',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          useUserStore.setState({ loginUser: null });
+          swalWithBootstrapButtons.fire({
+            title: '로그아웃했습니다.',
+            icon: 'success',
+          });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: '로그아웃하지 않았습니다.',
+            text: '기존 서비스를 그대로 이용할 수 있습니다.',
+            icon: 'error',
+          });
+        }
+      });
   };
 
   return (
@@ -61,14 +95,17 @@ const Sidebar = ({ onToggleTheme }) => {
             </ALink>
           )}
         </li>
-        <li>
-          <ALink to="">
-            <svg width="100%" height="50" viewBox="0 0 200 50" preserveAspectRatio="none">
-              <rect x="0" y="0" width="100%" height="100%" />
-            </svg>
-            Notes
-          </ALink>
-        </li>
+        {loginUser && (
+          <li>
+            <ALink to="/myInfo">
+              <svg width="100%" height="50" viewBox="0 0 200 50" preserveAspectRatio="none">
+                <rect x="0" y="0" width="100%" height="100%" />
+              </svg>
+              MyInfo
+            </ALink>
+          </li>
+        )}
+
         <li>
           <ALink to="">
             <svg width="100%" height="50" viewBox="0 0 200 50" preserveAspectRatio="none">
@@ -85,7 +122,6 @@ const Sidebar = ({ onToggleTheme }) => {
     </Container>
   );
 };
-
 const Container = styled.div`
   width: 200px;
   min-height: 100%;

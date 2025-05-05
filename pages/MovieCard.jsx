@@ -1,9 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ShineDiv } from '../src/components/styled/Div';
+import { LoadingOverlay } from '../src/components/styled/Overlay';
 import { CrackleButton } from '../src/components/styled/Button';
 import styled from 'styled-components';
+import UserStore from '../store/UserStore';
+import useMovieStore from '../store/MovieStore';
+
+const useUserStore = UserStore;
 
 const MovieCard = ({ movie }) => {
+  const { handleDelete, deleteMovieId } = useMovieStore();
+  const loginUser = useUserStore((state) => state.loginUser);
+
   return (
     <ShineDiv style={{ width: '100%', height: '100%', display: 'flex' }}>
       <img style={{ height: '100%', width: '200px' }} src={movie.image || '/src/images/default.jpg'} />
@@ -27,17 +35,25 @@ const MovieCard = ({ movie }) => {
           </Tr>
         </Tbody>
       </table>
-      <Access>
-        <CrackleButton style={{ fontSize: '20px' }} data-hover="수정">
-          수정
-        </CrackleButton>
-        <CrackleButton style={{ fontSize: '20px' }} data-hover="삭제">
-          삭제
-        </CrackleButton>
-      </Access>
+      {loginUser && loginUser.userID === movie.writer && (
+        <Access>
+          <CrackleButton style={{ fontSize: '20px' }} data-hover="수정">
+            수정
+          </CrackleButton>
+          <CrackleButton style={{ fontSize: '20px' }} data-hover="삭제" onClick={() => handleDelete(movie.id)}>
+            삭제
+          </CrackleButton>
+        </Access>
+      )}
+      {deleteMovieId === movie.id && (
+        <LoadingOverlay>
+          <div>삭제중...</div>
+        </LoadingOverlay>
+      )}
     </ShineDiv>
   );
 };
+
 const Tr = styled.tr`
   width: 100%;
   text-align: start;
