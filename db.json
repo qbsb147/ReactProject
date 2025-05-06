@@ -11,14 +11,41 @@
       "image": "src/images/poster2.jpg"
     },
     {
+      "id": "2",
+      "director": "이토 준지",
+      "star": 4.1,
+      "title": "섀도우 헌터",
+      "genre": "action",
+      "content": "어둠 속 정의의 전사",
+      "writer": "hero22"
+    },
+    {
+      "id": "3",
+      "director": "미야자키 하야오",
+      "star": 4.8,
+      "title": "웃어봐요",
+      "genre": "comedy",
+      "content": "끝없는 웃음의 향연",
+      "writer": "smileme"
+    },
+    {
       "id": "4",
       "director": "후치지마 야도후",
       "star": 3.4,
       "title": "히어로즈",
       "genre": "romance",
       "content": "알콩달콩한 이야기",
-      "writer": "qwer4",
+      "writer": "qwer8",
       "image": "src/images/images.jfif"
+    },
+    {
+      "id": "5",
+      "director": "켄타 마루오",
+      "star": 4.0,
+      "title": "진실의 기록",
+      "genre": "documentary",
+      "content": "감춰진 과거를 파헤치다",
+      "writer": "docu99"
     },
     {
       "id": "6",
@@ -27,8 +54,314 @@
       "title": "히어로즈",
       "genre": "romance",
       "content": "알콩달콩한 이야기",
-      "writer": "qwer4",
+      "writer": "qwer8",
       "image": "src/images/images.jfif"
+    },
+    {
+      "id": "7",
+      "director": "하라다 이치로",
+      "star": 4.7,
+      "title": "우리의 이야기",
+      "genre": "romance",
+      "content": "서로를 알아가는 시간",
+      "writer": "rom85"
+    },
+    {
+      "id": "8",
+      "director": "카네다 쇼",
+      "star": 4.3,
+      "title": "웃음폭탄",
+      "genre": "comedy",
+      "content": "끝없는 폭소",
+      "writer": "lolman"
+    },
+    {
+      "id": "9",
+      "director": "고바야시 준",
+      "star": 3.6,
+      "title": "자연의 힘",
+      "genre": "documentary",
+      "content": "자연을 깊이 있게 조명",
+      "writer": "earthfan"
+    },
+    {
+      "id": "10",
+      "director": "야마모토 슌",
+      "star": 4.9,
+      "title": "스피드 레이스",
+      "genre": "action",
+      "content": "레이싱 액션의 정점",
+      "writer": "fastlife"
+    },
+    {
+      "id": "11",
+      "director": "야마다 히로코",
+      "star": 3.8,
+      "title": "사랑은 타이밍",
+      "genre": "romance",
+      "content": "타이밍이 모든 것을 결정한다",
+      "writer": "timelove"
+    },
+    {
+      "id": "12",
+      "director": "사토 켄",
+      "star": 3.9,
+      "title": "바보들의 합창",
+      "genre": "comedy",
+      "content": "엉뚱한 이들의 대소동",
+      "writer": "funnyguy"
+    },
+    {
+      "id": "13",
+      "director": "나카무라 타쿠야",
+      "star": 4.0,
+      "title": "끝나지 않는 전쟁",
+      "genre": "documentary",
+      "content": "세계의 분쟁을 되짚다",
+      "writer": "truthseeker"
+    },
+    {
+      "id": "14",
+      "director": "사이토 미유",
+      "star": 4.5,
+      "title": "격투의 신",
+      "genre": "action",
+      "content": "격투기의 모든 것",
+      "writer": "fighterX"
+    },
+    {
+      "id": "15",
+      "director": "스즈키 레이나",
+      "star": 3.7,
+      "title": "고백",
+      "genre": "romance",
+      "content": "조용한 사랑의 고백",
+      "writer": "heartfelt"
+    },
+    {
+      "id": "16",
+      "director": "아오이 신지",
+      "star": 3.5,
+      "title": "유쾌한 동네",
+      "genre": "comedy",
+      "content": "동네 사람들의 유쾌한 에피소드",
+      "writer": "joyful88"
+    },
+    {
+      "id": "17",
+      "director": "다케다 류지",
+      "star": 4.2,
+      "title": "빙하 속 비밀",
+      "genre": "documentary",
+      "content": "극지방 탐사의 진실",
+      "writer": "icehunter"
+    },
+    {
+      "id": "18",
+      "director": "이치카와 마코토",
+      "star": 4.4,
+      "title": "혼신의 일격",
+      "genre": "action",
+      "content": "복수를 향한 외침",
+      "writer": "revenge001"
+    },
+    {
+      "id": "19",
+      "director": "야마시타 유이",
+      "star": 4.0,
+      "title": "우리 둘만 아는 이야기",
+      "genre": "romance",
+      "content": "비밀스러운 연애담",
+      "writer": "hiddenfeel"
+    },
+    {
+      "id": "20",
+      "director": "혼다 히토미",
+      "star": 4.6,
+      "title": "개그왕",
+      "genre": "comedy",
+      "content": "전설의 개그맨이 돌아왔다",
+      "writer": "gagman"
+    },
+    {
+      "id": "21",
+      "director": "카토 타다시",
+      "star": 3.3,
+      "title": "분노의 질주",
+      "genre": "action",
+      "content": "폭발하는 질주의 쾌감",
+      "writer": "rushman"
+    },
+    {
+      "id": "22",
+      "director": "모리 아야",
+      "star": 4.1,
+      "title": "밤하늘 별 이야기",
+      "genre": "romance",
+      "content": "별빛 아래 피어나는 사랑",
+      "writer": "starlove"
+    },
+    {
+      "id": "23",
+      "director": "타카하시 겐",
+      "star": 4.5,
+      "title": "배꼽 빠지는 날",
+      "genre": "comedy",
+      "content": "배꼽이 빠질 정도의 웃음",
+      "writer": "lolking"
+    },
+    {
+      "id": "24",
+      "director": "니시무라 준페이",
+      "star": 4.7,
+      "title": "지구의 눈물",
+      "genre": "documentary",
+      "content": "지구가 말하는 환경 이야기",
+      "writer": "earthvoice"
+    },
+    {
+      "id": "25",
+      "director": "이마무라 료",
+      "star": 3.6,
+      "title": "폭풍전야",
+      "genre": "action",
+      "content": "정적 속의 긴장감",
+      "writer": "stormeye"
+    },
+    {
+      "id": "26",
+      "director": "키무라 나오미",
+      "star": 3.9,
+      "title": "편지",
+      "genre": "romance",
+      "content": "그녀에게 보내는 마지막 편지",
+      "writer": "letterman"
+    },
+    {
+      "id": "27",
+      "director": "야기 히데키",
+      "star": 3.2,
+      "title": "웃음 바이러스",
+      "genre": "comedy",
+      "content": "웃음이 퍼지는 전염병?",
+      "writer": "hahaha"
+    },
+    {
+      "id": "28",
+      "director": "오오쿠보 레이지",
+      "star": 4.3,
+      "title": "미지의 세계",
+      "genre": "documentary",
+      "content": "인류가 가지 못한 곳",
+      "writer": "mysterydoc"
+    },
+    {
+      "id": "29",
+      "director": "우에노 시게루",
+      "star": 4.8,
+      "title": "마지막 결투",
+      "genre": "action",
+      "content": "운명을 건 대결",
+      "writer": "duelist"
+    },
+    {
+      "id": "30",
+      "director": "에노모토 하루카",
+      "star": 4.0,
+      "title": "창밖의 너",
+      "genre": "romance",
+      "content": "창밖에서 마주친 인연",
+      "writer": "windowlove"
+    },
+    {
+      "id": "31",
+      "director": "하야카와 료타",
+      "star": 3.5,
+      "title": "개그 천재",
+      "genre": "comedy",
+      "content": "웃음 유전자 보유자",
+      "writer": "gigglegod"
+    },
+    {
+      "id": "32",
+      "director": "가와시마 이츠키",
+      "star": 3.9,
+      "title": "바다의 노래",
+      "genre": "documentary",
+      "content": "바다 생명에 대한 찬가",
+      "writer": "sealover"
+    },
+    {
+      "id": "33",
+      "director": "나카지마 하루토",
+      "star": 4.6,
+      "title": "혼신의 질주",
+      "genre": "action",
+      "content": "달리는 것이 전부였던 그",
+      "writer": "runnermax"
+    },
+    {
+      "id": "34",
+      "director": "시라이시 미노루",
+      "star": 3.4,
+      "title": "사랑은 연습이 필요해",
+      "genre": "romance",
+      "content": "어색한 시작, 진짜 사랑",
+      "writer": "practiceu"
+    },
+    {
+      "id": "35",
+      "director": "타카기 미사토",
+      "star": 3.8,
+      "title": "웃음연습생",
+      "genre": "comedy",
+      "content": "개그맨 지망생의 이야기",
+      "writer": "futuregag"
+    },
+    {
+      "id": "36",
+      "director": "사카모토 켄지",
+      "star": 4.1,
+      "title": "불편한 진실",
+      "genre": "documentary",
+      "content": "숨겨진 역사 속 진실",
+      "writer": "factfinder"
+    },
+    {
+      "id": "37",
+      "director": "야마카와 노부유키",
+      "star": 4.7,
+      "title": "일격 필살",
+      "genre": "action",
+      "content": "한 방이면 충분하다",
+      "writer": "oneshot"
+    },
+    {
+      "id": "38",
+      "director": "아카네 타마키",
+      "star": 3.6,
+      "title": "한밤의 데이트",
+      "genre": "romance",
+      "content": "달빛 아래 속삭이는 연인들",
+      "writer": "moonnight"
+    },
+    {
+      "id": "39",
+      "director": "무라카미 이오리",
+      "star": 4.0,
+      "title": "광대의 일기",
+      "genre": "comedy",
+      "content": "웃기기 위해 울었던 이야기",
+      "writer": "sadclown"
+    },
+    {
+      "id": "40",
+      "director": "노구치 에리카",
+      "star": 4.2,
+      "title": "잊힌 역사",
+      "genre": "documentary",
+      "content": "기록되지 않은 과거",
+      "writer": "hiddenpast"
     }
   ],
   "users": [
