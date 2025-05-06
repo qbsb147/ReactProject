@@ -32,8 +32,11 @@ const Login = () => {
     try {
       const user = await axios.get(`http://localhost:3001/users?userID=${data.userID}`);
       loginUser = user.data;
+      if (loginUser.length === 0) {
+        toast.error('로그인에 실패했습니다. 아이디를 확인해주세요.');
+      }
     } catch (error) {
-      toast.error('로그인에 실패했습니다. 아이디를 확인해주세요.');
+      toast.error(`로그인 중에 문제가 발생했습니다. ${error}`);
     }
     if (loginUser[0].password === data.password) {
       useUserStore.setState({ loginUser: loginUser[0] });

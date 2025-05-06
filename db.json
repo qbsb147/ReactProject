@@ -33,42 +33,6 @@
   ],
   "users": [
     {
-      "userNo": 1,
-      "userName": "최예찬",
-      "userID": "qwer1234",
-      "password": "123456",
-      "nickName": "찬차니",
-      "phone": "010-1111-5678",
-      "id": "e4f1"
-    },
-    {
-      "userNo": 2,
-      "userName": "김철수",
-      "userID": "user1",
-      "password": "123456",
-      "nickName": "철수짱",
-      "phone": "010-1111-0001",
-      "id": "477b"
-    },
-    {
-      "userNo": 3,
-      "userName": "이영희",
-      "userID": "user2",
-      "password": "123456",
-      "nickName": "영희짱",
-      "phone": "010-1111-0002",
-      "id": "fa55"
-    },
-    {
-      "userNo": 4,
-      "userName": "박민수",
-      "userID": "user3",
-      "password": "123456",
-      "nickName": "민수짱",
-      "phone": "010-1111-0003",
-      "id": "dfa6"
-    },
-    {
       "userNo": 5,
       "userName": "정수지",
       "userID": "user4",
@@ -76,24 +40,6 @@
       "nickName": "수지짱",
       "phone": "010-1111-0004",
       "id": "6940"
-    },
-    {
-      "userNo": 6,
-      "userName": "최동욱",
-      "userID": "user5",
-      "password": "123456",
-      "nickName": "동욱짱",
-      "phone": "010-1111-0005",
-      "id": "5ab8"
-    },
-    {
-      "userNo": 7,
-      "userName": "한예진",
-      "userID": "user6",
-      "password": "123456",
-      "nickName": "예진짱",
-      "phone": "010-1111-0006",
-      "id": "2bbe"
     },
     {
       "userNo": 8,
@@ -130,42 +76,6 @@
       "nickName": "지민짱",
       "phone": "010-1111-0010",
       "id": "3eb2"
-    },
-    {
-      "userNo": 12,
-      "userName": "백승호",
-      "userID": "user11",
-      "password": "123456",
-      "nickName": "승호짱",
-      "phone": "010-1111-0011",
-      "id": "be63"
-    },
-    {
-      "userNo": 13,
-      "userName": "서지수",
-      "userID": "user12",
-      "password": "123456",
-      "nickName": "지수짱",
-      "phone": "010-1111-0012",
-      "id": "05cf"
-    },
-    {
-      "userNo": 14,
-      "userName": "강민재",
-      "userID": "user13",
-      "password": "123456",
-      "nickName": "민재짱",
-      "phone": "010-1111-0013",
-      "id": "f40b"
-    },
-    {
-      "userNo": 15,
-      "userName": "김서윤",
-      "userID": "user14",
-      "password": "123456",
-      "nickName": "서윤짱",
-      "phone": "010-1111-0014",
-      "id": "ed84"
     },
     {
       "userNo": 16,

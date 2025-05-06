@@ -11,7 +11,7 @@ const useUserStore = UserStore;
 const Sidebar = ({ onToggleTheme }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const loginUser = useUserStore((state) => state.loginUser);
+  const { handleLogout, loginUser } = useUserStore();
 
   useEffect(() => {
     if (location.state?.toastMessage) {
@@ -23,40 +23,7 @@ const Sidebar = ({ onToggleTheme }) => {
     }
   }, [location.state?.toastMessage]);
 
-  const handleLogout = () => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger',
-      },
-      buttonsStyling: false,
-    });
-    swalWithBootstrapButtons
-      .fire({
-        title: '정말 로그아웃하시겠습니까?',
-        text: '로그아웃하고 오프라인으로 전환합니다.',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: '네, 로그아웃할래요!',
-        cancelButtonText: '아니요, 괜찮습니다.',
-        reverseButtons: true,
-      })
-      .then((result) => {
-        if (result.isConfirmed) {
-          useUserStore.setState({ loginUser: null });
-          swalWithBootstrapButtons.fire({
-            title: '로그아웃했습니다.',
-            icon: 'success',
-          });
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          swalWithBootstrapButtons.fire({
-            title: '로그아웃하지 않았습니다.',
-            text: '기존 서비스를 그대로 이용할 수 있습니다.',
-            icon: 'error',
-          });
-        }
-      });
-  };
+  useEffect(() => {}, [loginUser]);
 
   return (
     <Container>

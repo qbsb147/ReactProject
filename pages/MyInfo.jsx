@@ -6,10 +6,12 @@ import UserStore from '../store/UserStore';
 const useUserStore = UserStore;
 const MyInfo = () => {
   const loginUser = useUserStore((state) => state.loginUser);
+  const { handleDelete } = useUserStore();
+  const navigate = useNavigate();
   return (
     <>
       <Wrapper>
-        <Image src={loginUser.image || '/src/images/default.png'} alt="미리보기" />
+        <Image src={(loginUser && loginUser.image) || '/src/images/default.png'} alt="미리보기" />
 
         <Form>
           <Body>
@@ -32,7 +34,9 @@ const MyInfo = () => {
           </Body>
           <Footer>
             <Modify to="/userUpdate">수정하기</Modify>
-            <Delete type="button">삭제하기</Delete>
+            <Delete type="button" onClick={() => handleDelete(loginUser.id, navigate)}>
+              삭제하기
+            </Delete>
           </Footer>
         </Form>
       </Wrapper>
