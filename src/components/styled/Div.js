@@ -39,5 +39,3 @@ export const ShineDiv = styled.div`
     }
   }
 `;
-
-export const Card = styled.div``;

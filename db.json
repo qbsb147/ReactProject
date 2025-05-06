@@ -17,7 +17,7 @@
       "title": "히어로즈",
       "genre": "romance",
       "content": "알콩달콩한 이야기",
-      "writer": "qwer1234",
+      "writer": "qwer4",
       "image": "src/images/images.jfif"
     },
     {
@@ -27,7 +27,7 @@
       "title": "히어로즈",
       "genre": "romance",
       "content": "알콩달콩한 이야기",
-      "writer": "qwer1234",
+      "writer": "qwer4",
       "image": "src/images/images.jfif"
     }
   ],
@@ -35,7 +35,7 @@
     {
       "userNo": 5,
       "userName": "정수지",
-      "userID": "user4",
+      "userID": "qwer4",
       "password": "123456",
       "nickName": "수지짱",
       "phone": "010-1111-0004",
@@ -44,7 +44,7 @@
     {
       "userNo": 8,
       "userName": "오진우",
-      "userID": "user7",
+      "userID": "qwer7",
       "password": "123456",
       "nickName": "진우짱",
       "phone": "010-1111-0007",
@@ -53,7 +53,7 @@
     {
       "userNo": 9,
       "userName": "장서현",
-      "userID": "user8",
+      "userID": "qwer8",
       "password": "123456",
       "nickName": "서현짱",
       "phone": "010-1111-0008",
@@ -62,7 +62,7 @@
     {
       "userNo": 10,
       "userName": "윤도현",
-      "userID": "user9",
+      "userID": "qwer9",
       "password": "123456",
       "nickName": "도현짱",
       "phone": "010-1111-0009",
@@ -71,7 +71,7 @@
     {
       "userNo": 11,
       "userName": "신지민",
-      "userID": "user10",
+      "userID": "qwer10",
       "password": "123456",
       "nickName": "지민짱",
       "phone": "010-1111-0010",
@@ -80,7 +80,7 @@
     {
       "userNo": 16,
       "userName": "이준호",
-      "userID": "user15",
+      "userID": "qwer15",
       "password": "123456",
       "nickName": "준호짱",
       "phone": "010-1111-0015",
@@ -89,7 +89,7 @@
     {
       "userNo": 17,
       "userName": "조하은",
-      "userID": "user16",
+      "userID": "qwer16",
       "password": "123456",
       "nickName": "하은짱",
       "phone": "010-1111-0016",
@@ -98,7 +98,7 @@
     {
       "userNo": 18,
       "userName": "임유진",
-      "userID": "user17",
+      "userID": "qwer17",
       "password": "123456",
       "nickName": "유진짱",
       "phone": "010-1111-0017",
@@ -107,7 +107,7 @@
     {
       "userNo": 19,
       "userName": "배도현",
-      "userID": "user18",
+      "userID": "qwer18",
       "password": "123456",
       "nickName": "도현짱",
       "phone": "010-1111-0018",
@@ -116,7 +116,7 @@
     {
       "userNo": 20,
       "userName": "문하늘",
-      "userID": "user19",
+      "userID": "qwer19",
       "password": "123456",
       "nickName": "하늘짱",
       "phone": "010-1111-0019",
@@ -125,7 +125,7 @@
     {
       "userNo": 21,
       "userName": "송태훈",
-      "userID": "user20",
+      "userID": "qwer20",
       "password": "123456",
       "nickName": "태훈짱",
       "phone": "010-1111-0020",

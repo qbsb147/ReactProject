@@ -15,6 +15,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MyInfo from '../pages/MyInfo';
 import UserUpdate from '../pages/userUpdate';
+import NotFound from '../pages/NotFound';
 
 function App() {
   const [isDark, setIsDark] = useState(true);
@@ -35,6 +36,7 @@ function App() {
               <Route path="/movieDetail/:id" element={<MovieDetail />} />
               <Route path="/myInfo" element={<MyInfo />} />
               <Route path="/userUpdate" element={<UserUpdate />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Center>
           <ToastContainer />

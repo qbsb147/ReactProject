@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 
 const UserStore = create((set, get) => ({
   loginUser: null,
+  setLoginUser: (user) => set({ loginUser: user }),
   loading: false,
   error: null,
   deleteUserId: null,
