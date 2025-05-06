@@ -3,7 +3,6 @@ import React, { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import UserStore from '../store/UserStore';
-import useInput from '../src/components/customHook/useInput';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
@@ -22,8 +21,9 @@ const schema = yup.object().shape({
 
 const useUserStore = UserStore;
 const UserUpdate = () => {
+  const navigate = useNavigate();
   const loginUser = useUserStore((state) => state.loginUser);
-  const setLoginUser = useUserStore((state) => state.setLoginUser);
+  const { handleUpdate, handleDelete } = useUserStore();
 
   const {
     register,
@@ -41,8 +41,6 @@ const UserUpdate = () => {
   });
   const onSubmit = async (data) => {
     if (data.password !== data.passwordCheck) {
-      console.log('data.password', data.password);
-      console.log('data.passwordCheck', data.passwordCheck);
       return toast.warning(
         <>
           비밀번호가 일치하지 않습니다. <br />
@@ -50,27 +48,16 @@ const UserUpdate = () => {
         </>
       );
     }
-    try {
-      const userData = {
-        userName: data.userName,
-        userID: data.userID,
-        nickName: data.nickName,
-        phone: data.phone,
-        password: data.password,
-        userNo: Date.now(),
-        id: loginUser.id,
-      };
-      console.log('userData', userData);
-      await axios.put(`http://localhost:3001/users/${loginUser.id}`, userData);
-      setLoginUser(userData);
-      navigate('/myInfo', {
-        state: {
-          toastMessage: `${userData.userName}님 회원정보 수정이 완료되었습니다.`,
-        },
-      });
-    } catch (error) {
-      toast.error('회원정보 수정에 실패했습니다.');
-    }
+    const userData = {
+      userName: data.userName,
+      userID: data.userID,
+      nickName: data.nickName,
+      phone: data.phone,
+      password: data.password,
+      userNo: Date.now(),
+      id: loginUser.id,
+    };
+    handleUpdate(userData, navigate);
   };
 
   return (
@@ -113,13 +100,22 @@ const UserUpdate = () => {
           </Body>
           <Footer>
             <Modify type="submit">수정하기</Modify>
-            <Delete type="button">삭제하기</Delete>
+            <Delete
+              type="button"
+              onClick={() => {
+                handleDelete(loginUser.id, navigate);
+              }}
+            >
+              삭제하기
+            </Delete>
           </Footer>
         </Form>
       </Wrapper>
     </>
   );
 };
+
+export default UserUpdate;
 
 const Wrapper = styled.div`
   border-top: 3px solid red;
@@ -235,5 +231,3 @@ const Delete = styled.button`
     border: 3px solid #c78595;
   }
 `;
-
-export default UserUpdate;

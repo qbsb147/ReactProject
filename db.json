@@ -33,24 +33,6 @@
   ],
   "users": [
     {
-      "userNo": 5,
-      "userName": "정수지",
-      "userID": "qwer4",
-      "password": "123456",
-      "nickName": "수지짱",
-      "phone": "010-1111-0004",
-      "id": "6940"
-    },
-    {
-      "userNo": 8,
-      "userName": "오진우",
-      "userID": "qwer7",
-      "password": "123456",
-      "nickName": "진우짱",
-      "phone": "010-1111-0007",
-      "id": "532b"
-    },
-    {
       "userNo": 9,
       "userName": "장서현",
       "userID": "qwer8",
@@ -76,15 +58,6 @@
       "nickName": "지민짱",
       "phone": "010-1111-0010",
       "id": "3eb2"
-    },
-    {
-      "userNo": 16,
-      "userName": "이준호",
-      "userID": "qwer15",
-      "password": "123456",
-      "nickName": "준호짱",
-      "phone": "010-1111-0015",
-      "id": "ed31"
     },
     {
       "userNo": 17,

@@ -8,18 +8,36 @@ const UserStore = create((set, get) => ({
   loading: false,
   error: null,
   deleteUserId: null,
+  updateUserId: null,
 
   deleteUser: async (id) => {
     set({ loading: true, error: null });
 
     try {
-      await axios.delete(`http://localhost:3001/users/${id}`);
-
+      const response = await axios.delete(`http://localhost:3001/users/${id}`);
       set(() => ({
         loading: false,
       }));
+      return response;
     } catch (error) {
       set({ loading: false, error: error.message });
+      Swal.showValidationMessage(`에러가 발생했습니다. ${error}`);
+      return error;
+    }
+  },
+  updateUser: async (id, userData) => {
+    set({ loading: true, error: null });
+
+    try {
+      const response = await axios.put(`http://localhost:3001/users/${id}`, userData);
+      set(() => ({
+        loading: false,
+      }));
+      return response;
+    } catch (error) {
+      set({ loading: false, error: error.message });
+      Swal.showValidationMessage(`에러가 발생했습니다. ${error}`);
+      return error;
     }
   },
 
@@ -43,14 +61,13 @@ const UserStore = create((set, get) => ({
         cancelButtonText: '아니요',
         reverseButtons: true,
         preConfirm: async (password) => {
-          console.log('password', password);
-          console.log('id', id);
           try {
             const resUser = await axios.get(`http://localhost:3001/users?id=${id}`);
             const user = resUser.data[0];
-            console.log('user.password', user.password);
             if (String(user.password) === String(password)) {
-              const response = await axios.delete(`http://localhost:3001/users/${id}`);
+              set({ deleteUserId: id });
+              const response = await get().deleteUser(id);
+              set({ deleteUserId: null });
               return response.data;
             } else {
               Swal.showValidationMessage('비밀번호가 일치하지 않습니다.');
@@ -64,9 +81,6 @@ const UserStore = create((set, get) => ({
       })
       .then(async (result) => {
         if (result.isConfirmed) {
-          set({ deleteUserId: id });
-          await get().deleteUser(id);
-          set({ deleteUserId: null });
           swalWithBootstrapButtons
             .fire({
               title: '삭제했습니다.',
@@ -79,6 +93,67 @@ const UserStore = create((set, get) => ({
                 },
               });
               set({ loginUser: null });
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: '취소했습니다.',
+            icon: 'error',
+          });
+        }
+      });
+  },
+  handleUpdate: async (userData, navigate) => {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger',
+      },
+      buttonsStyling: false,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        title: '정말 수정하겠습니까?',
+        input: 'password',
+        text: '확인을 위해 비밀번호를 입력해주세요.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: '네, 수정합니다.',
+        showLoaderOnConfirm: true,
+        cancelButtonText: '아니요',
+        reverseButtons: true,
+        preConfirm: async (password) => {
+          try {
+            const resUser = await axios.get(`http://localhost:3001/users?id=${userData.id}`);
+            const user = resUser.data[0];
+            if (String(user.password) === String(password)) {
+              set({ updateUserId: userData.id });
+              const response = await get().updateUser(userData.id, userData);
+              set({ updateUserId: null });
+              return response.data;
+            } else {
+              Swal.showValidationMessage('비밀번호가 일치하지 않습니다.');
+            }
+          } catch (error) {
+            Swal.showValidationMessage(`
+        요청 실패: ${error}
+      `);
+          }
+        },
+      })
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons
+            .fire({
+              title: '수정했습니다.',
+              icon: 'success',
+            })
+            .then(() => {
+              navigate('/myInfo', {
+                state: {
+                  toastMessage: `${userData.userName}님 회원정보 수정이 완료되었습니다.`,
+                },
+              });
+              set({ loginUser: userData });
             });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
