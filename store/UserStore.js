@@ -9,6 +9,38 @@ const UserStore = create((set, get) => ({
   error: null,
   deleteUserId: null,
   updateUserId: null,
+  uniqueId: false,
+
+  idCheck: async (inputId) => {
+    set({ uniqueId: false });
+    try {
+      const response = await axios.get('http://localhost:3001/users');
+      const userList = response.data;
+      const sameUser = userList.find((user) => String(user.userID) === String(inputId));
+      if (sameUser) {
+        set({ uniqueId: false });
+        const dupliID = sameUser.userID;
+        Swal.fire({
+          icon: 'warning',
+          title: '중복된 아이디',
+          text: `이 아이디 ${dupliID}는 이미 사용 중입니다.`,
+        });
+      } else {
+        set({ uniqueId: true });
+        Swal.fire({
+          icon: 'success',
+          title: '사용 가능한 아이디',
+          text: `${inputId}는 사용할 수 있는 아이디입니다.`,
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: '서버에 문제가 발생했습니다.',
+        text: `에러 내용 : ${error}`,
+      });
+    }
+  },
 
   deleteUser: async (id) => {
     set({ loading: true, error: null });
@@ -25,6 +57,7 @@ const UserStore = create((set, get) => ({
       return error;
     }
   },
+
   updateUser: async (id, userData) => {
     set({ loading: true, error: null });
 

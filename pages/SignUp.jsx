@@ -5,6 +5,8 @@ import styled, { keyframes } from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import UserStore from '../store/UserStore';
+import { toast } from 'react-toastify';
 
 const schema = yup.object().shape({
   userName: yup.string().required('이름을 입력하세요'),
@@ -21,43 +23,53 @@ const schema = yup.object().shape({
     .required('전화번호를 입력하세요.'),
 });
 
+const useUserStore = UserStore;
+
 const SingUp = () => {
   const navigate = useNavigate();
+  const { uniqueId, idCheck } = useUserStore();
 
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
 
-  const onSubmit = async (data) => {
+  const insertUser = async (data) => {
     try {
-      const userData = {
-        ...data,
-        userNo: Date.now(),
-      };
-      await axios.post('http://localhost:3001/users', userData);
-      navigate('/login', {
-        state: {
-          toastMessage: `환영합니다! ${data.userName}님`,
-        },
-      });
+      if (uniqueId) {
+        const userData = {
+          ...data,
+          userNo: Date.now(),
+        };
+        await axios.post('http://localhost:3001/users', userData);
+        navigate('/login', {
+          state: {
+            toastMessage: `환영합니다! ${data.userName}님`,
+          },
+        });
+      } else {
+        toast.warning('아이디 중복 확인을 해주세요.');
+      }
     } catch (error) {
       toast.error('회원가입에 실패했습니다. 재시도해주세요');
     }
   };
 
   return (
-    <JoinForm onSubmit={handleSubmit(onSubmit)}>
+    <JoinForm onSubmit={handleSubmit(insertUser)}>
       <Head>회원가입</Head>
       <Input type="text" placeholder="UserName" {...register('userName')} />
       {errors.userName && <ErrorText>{errors.userName.message}</ErrorText>}
       <ID>
         <Input type="text" placeholder="UserId" {...register('userID')} />
-        <Check type="button">중복확인</Check>
+        <Check type="button" onClick={() => idCheck(getValues('userID'))}>
+          중복확인
+        </Check>
       </ID>
       {errors.userID && <ErrorText>{errors.userID.message}</ErrorText>}
       <Input type="password" placeholder="Password" {...register('password')} />

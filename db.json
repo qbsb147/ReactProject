@@ -17,7 +17,8 @@
       "title": "섀도우 헌터",
       "genre": "action",
       "content": "어둠 속 정의의 전사",
-      "writer": "hero22"
+      "writer": "hero22",
+      "image": "src/images/poster3.jpg"
     },
     {
       "id": "3",
@@ -26,7 +27,8 @@
       "title": "웃어봐요",
       "genre": "comedy",
       "content": "끝없는 웃음의 향연",
-      "writer": "smileme"
+      "writer": "smileme",
+      "image": "src/images/poster4.png"
     },
     {
       "id": "4",
@@ -41,21 +43,12 @@
     {
       "id": "5",
       "director": "켄타 마루오",
-      "star": 4.0,
+      "star": 4,
       "title": "진실의 기록",
       "genre": "documentary",
       "content": "감춰진 과거를 파헤치다",
-      "writer": "docu99"
-    },
-    {
-      "id": "6",
-      "director": "후치지마 야도후",
-      "star": 3.4,
-      "title": "히어로즈",
-      "genre": "romance",
-      "content": "알콩달콩한 이야기",
-      "writer": "qwer8",
-      "image": "src/images/images.jfif"
+      "writer": "docu99",
+      "image": "src/images/poster6.jpg"
     },
     {
       "id": "7",
@@ -64,7 +57,8 @@
       "title": "우리의 이야기",
       "genre": "romance",
       "content": "서로를 알아가는 시간",
-      "writer": "rom85"
+      "writer": "rom85",
+      "image": "src/images/poster7.jpg"
     },
     {
       "id": "8",
@@ -73,7 +67,8 @@
       "title": "웃음폭탄",
       "genre": "comedy",
       "content": "끝없는 폭소",
-      "writer": "lolman"
+      "writer": "lolman",
+      "image": "src/images/poster8.jfif"
     },
     {
       "id": "9",
@@ -82,7 +77,8 @@
       "title": "자연의 힘",
       "genre": "documentary",
       "content": "자연을 깊이 있게 조명",
-      "writer": "earthfan"
+      "writer": "earthfan",
+      "image": "src/images/poster9.jpg"
     },
     {
       "id": "10",
@@ -91,7 +87,8 @@
       "title": "스피드 레이스",
       "genre": "action",
       "content": "레이싱 액션의 정점",
-      "writer": "fastlife"
+      "writer": "fastlife",
+      "image": "src/images/poster10.jpg"
     },
     {
       "id": "11",
@@ -114,7 +111,7 @@
     {
       "id": "13",
       "director": "나카무라 타쿠야",
-      "star": 4.0,
+      "star": 4,
       "title": "끝나지 않는 전쟁",
       "genre": "documentary",
       "content": "세계의 분쟁을 되짚다",
@@ -168,7 +165,7 @@
     {
       "id": "19",
       "director": "야마시타 유이",
-      "star": 4.0,
+      "star": 4,
       "title": "우리 둘만 아는 이야기",
       "genre": "romance",
       "content": "비밀스러운 연애담",
@@ -267,7 +264,7 @@
     {
       "id": "30",
       "director": "에노모토 하루카",
-      "star": 4.0,
+      "star": 4,
       "title": "창밖의 너",
       "genre": "romance",
       "content": "창밖에서 마주친 인연",
@@ -348,7 +345,7 @@
     {
       "id": "39",
       "director": "무라카미 이오리",
-      "star": 4.0,
+      "star": 4,
       "title": "광대의 일기",
       "genre": "comedy",
       "content": "웃기기 위해 울었던 이야기",
@@ -365,15 +362,6 @@
     }
   ],
   "users": [
-    {
-      "userNo": 9,
-      "userName": "장서현",
-      "userID": "qwer8",
-      "password": "123456",
-      "nickName": "서현짱",
-      "phone": "010-1111-0008",
-      "id": "49b4"
-    },
     {
       "userNo": 10,
       "userName": "윤도현",
@@ -436,6 +424,35 @@
       "nickName": "태훈짱",
       "phone": "010-1111-0020",
       "id": "bbd8"
+    },
+    {
+      "userName": "최예찬",
+      "userID": "qwer1234",
+      "nickName": "차니차니",
+      "phone": "010-1111-8754",
+      "password": "123456",
+      "userNo": 1746594967083,
+      "id": "ef26"
+    },
+    {
+      "id": "e75d",
+      "userName": "최예찬",
+      "userID": "qwer123",
+      "password": "qwer1234",
+      "passwordCheck": "qwer1234",
+      "nickName": "차니차니",
+      "phone": "010-1111-1111",
+      "userNo": 1746591124484
+    },
+    {
+      "id": "d761",
+      "userName": "최예찬",
+      "userID": "qwer1222",
+      "password": "123456",
+      "passwordCheck": "123456",
+      "nickName": "차니차니",
+      "phone": "010-1111-1111",
+      "userNo": 1746594819787
     }
   ]
 }

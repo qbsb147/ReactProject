@@ -1,44 +1,62 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import styled from 'styled-components';
+import { useInView } from 'react-intersection-observer';
+import { motion } from 'framer-motion';
+import useMovieStore from '../store/MovieStore';
 
 const About = () => {
+  const { getMovies, movies } = useMovieStore();
+
   useEffect(() => {
     AOS.init({
-      duration: 1000, // 애니메이션 지속 시간 (ms)
-      once: true, // 스크롤 시 한 번만 애니메이션 실행
+      duration: 1000,
+      once: false,
+      delay: 50,
+      mirror: true,
     });
+
+    AOS.refresh();
   }, []);
+
+  useEffect(() => {
+    getMovies();
+  }, [getMovies]);
 
   return (
     <Container>
-      <h1 data-aos="fade-up">스크롤 시 올라오는 제목</h1>
-      <p data-aos="fade-left">왼쪽에서 나타나는 문장</p>
-      <img data-aos="zoom-in" src="/src/images/default.png" alt="예시 이미지" />
-      <h1 data-aos="fade-up">스크롤 시 올라오는 제목</h1>
-      <p data-aos="fade-left">왼쪽에서 나타나는 문장</p>
-      <img data-aos="zoom-in" src="/src/images/default.png" alt="예시 이미지" />
-      <h1 data-aos="fade-up">스크롤 시 올라오는 제목</h1>
-      <p data-aos="fade-left">왼쪽에서 나타나는 문장</p>
-      <img data-aos="zoom-in" src="/src/images/default.png" alt="예시 이미지" />
-      <h1 data-aos="fade-up">스크롤 시 올라오는 제목</h1>
-      <p data-aos="fade-left">왼쪽에서 나타나는 문장</p>
-      <img data-aos="zoom-in" src="/src/images/default.png" alt="예시 이미지" />
-      <h1 data-aos="fade-up">스크롤 시 올라오는 제목</h1>
-      <p data-aos="fade-left">왼쪽에서 나타나는 문장</p>
-      <img data-aos="zoom-in" src="/src/images/default.png" alt="예시 이미지" />
-      <h1 data-aos="fade-up">스크롤 시 올라오는 제목</h1>
-      <p data-aos="fade-left">왼쪽에서 나타나는 문장</p>
-      <img data-aos="zoom-in" src="/src/images/default.png" alt="예시 이미지" />
-      <h1 data-aos="fade-up">스크롤 시 올라오는 제목</h1>
-      <p data-aos="fade-left">왼쪽에서 나타나는 문장</p>
-      <img data-aos="zoom-in" src="/src/images/default.png" alt="예시 이미지" />
-      <h1 data-aos="fade-up">스크롤 시 올라오는 제목</h1>
-      <p data-aos="fade-left">왼쪽에서 나타나는 문장</p>
-      <img data-aos="zoom-in" src="/src/images/default.png" alt="예시 이미지" />
+      {movies.map((movie, index) => (
+        <FadeInCard key={movie.id} isAlignRight={index % 2 === 1}>
+          <Card>
+            <h1>{movie.title}</h1>
+            <p>{movie.content}</p>
+            <img src={movie.image || 'src/images/default.jpg'} alt="예시 이미지" width={'600px'} />
+          </Card>
+        </FadeInCard>
+      ))}
     </Container>
+  );
+};
+
+const FadeInCard = ({ children, isAlignRight }) => {
+  const [ref, inView] = useInView({
+    threshold: 0.3,
+    triggerOnce: false,
+  });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: isAlignRight ? 100 : -100 }}
+      animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: isAlignRight ? 100 : -100 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      style={{
+        alignSelf: isAlignRight ? 'flex-end' : 'flex-start',
+      }}
+    >
+      <Card>{children}</Card>
+    </motion.div>
   );
 };
 
@@ -46,7 +64,16 @@ export default About;
 
 const Container = styled.div`
   display: flex;
+  width: 1200px;
   flex-direction: column;
-  overflow-y: scroll;
-  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 800px;
+  gap: 40px;
+  padding: 20px;
+`;
+
+const Card = styled.div`
+  width: 700px;
+  padding: 20px;
 `;
