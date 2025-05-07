@@ -38,7 +38,7 @@ const Sidebar = ({ onToggleTheme }) => {
           </ALink>
         </li>
         <li>
-          <ALink to="">
+          <ALink to="/about">
             <svg width="100%" height="50" viewBox="0 0 200 50" preserveAspectRatio="none">
               <rect x="0" y="0" width="100%" height="100%" />
             </svg>
