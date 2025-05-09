@@ -16,7 +16,7 @@ const schema = yup.object().shape({
 
 const Login = () => {
   const navigate = useNavigate();
-  const { handleLogin } = useUserStore();
+  const handleLogin = useUserStore((state) => state.handleLogin);
 
   const {
     register,

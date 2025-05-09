@@ -23,7 +23,8 @@ const useUserStore = UserStore;
 const UserUpdate = () => {
   const navigate = useNavigate();
   const loginUser = useUserStore((state) => state.loginUser);
-  const { handleDelete, updateSubmit } = useUserStore();
+  const handleDelete = useUserStore((state) => state.handleDelete);
+  const updateSubmit = useUserStore((state) => state.updateSubmit);
 
   const {
     register,

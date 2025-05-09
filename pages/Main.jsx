@@ -6,7 +6,11 @@ import useMovieStore from '../store/MovieStore';
 import { RingLoader } from 'react-spinners';
 
 const Main = () => {
-  const { movies, error, loading, getMovies } = useMovieStore();
+  const movies = useMovieStore((state) => state.movies);
+  const error = useMovieStore((state) => state.error);
+  const loading = useMovieStore((state) => state.loading);
+  const getMovies = useMovieStore((state) => state.getMovies);
+
   const [selectedGenre, setSelectedGenre] = useState('romance');
 
   useEffect(() => {

@@ -6,7 +6,7 @@ import UserStore from '../store/UserStore.jsx';
 const useUserStore = UserStore;
 const MyInfo = () => {
   const loginUser = useUserStore((state) => state.loginUser);
-  const { handleDelete } = useUserStore();
+  const handleDelete = useUserStore((state) => state.handleDelete);
   const navigate = useNavigate();
   return (
     <>

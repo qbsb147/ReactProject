@@ -27,7 +27,8 @@ const useUserStore = UserStore;
 
 const SingUp = () => {
   const navigate = useNavigate();
-  const { idCheck, insertUser } = useUserStore();
+  const idCheck = useUserStore((state) => state.idCheck);
+  const insertUser = useUserStore((state) => state.insertUser);
 
   const {
     register,

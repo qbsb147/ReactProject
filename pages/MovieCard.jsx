@@ -9,8 +9,9 @@ import useMovieStore from '../store/MovieStore';
 const useUserStore = UserStore;
 
 const MovieCard = ({ movie }) => {
-  const { handleDelete, deleteMovieId } = useMovieStore();
   const loginUser = useUserStore((state) => state.loginUser);
+  const handleDelete = useMovieStore((state) => state.handleDelete);
+  const deleteMovieId = useMovieStore((state) => state.deleteMovieId);
 
   return (
     <ShineDiv style={{ width: '100%', height: '100%', display: 'flex' }}>

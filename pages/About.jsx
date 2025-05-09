@@ -7,7 +7,8 @@ import { motion } from 'framer-motion';
 import useMovieStore from '../store/MovieStore';
 
 const About = () => {
-  const { getMovies, movies } = useMovieStore();
+  const getMovies = useMovieStore((state) => state.getMovies);
+  const movies = useMovieStore((state) => state.movies);
 
   useEffect(() => {
     AOS.init({

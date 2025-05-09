@@ -11,7 +11,8 @@ const useUserStore = UserStore;
 const Sidebar = ({ onToggleTheme }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { handleLogout, loginUser } = useUserStore();
+  const handleLogout = useUserStore((state) => state.handleLogout);
+  const loginUser = useUserStore((state) => state.loginUser);
 
   useEffect(() => {
     if (location.state?.toastMessage) {
