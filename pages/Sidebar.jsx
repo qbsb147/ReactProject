@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import Swal from 'sweetalert2';
-import UserStore from '../store/UserStore';
+import UserStore from '../store/UserStore.jsx';
 
 const useUserStore = UserStore;
 

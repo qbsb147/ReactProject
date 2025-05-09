@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import MovieCard from './MovieCard';
 import useMovieStore from '../store/MovieStore';
 import { RingLoader } from 'react-spinners';
-import { css } from '@emotion/react';
 
 const Main = () => {
   const { movies, error, loading, getMovies } = useMovieStore();

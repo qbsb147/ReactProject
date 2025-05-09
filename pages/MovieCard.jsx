@@ -3,7 +3,7 @@ import { ShineDiv } from '../src/components/styled/Div';
 import { LoadingOverlay } from '../src/components/styled/Overlay';
 import { CrackleButton } from '../src/components/styled/Button';
 import styled from 'styled-components';
-import UserStore from '../store/UserStore';
+import UserStore from '../store/UserStore.jsx';
 import useMovieStore from '../store/MovieStore';
 
 const useUserStore = UserStore;

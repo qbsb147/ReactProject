@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,7 +5,7 @@ import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
-import UserStore from '../store/UserStore';
+import UserStore from '../store/UserStore.jsx';
 
 const useUserStore = UserStore;
 
@@ -17,6 +16,7 @@ const schema = yup.object().shape({
 
 const Login = () => {
   const navigate = useNavigate();
+  const { handleLogin } = useUserStore();
 
   const {
     register,
@@ -27,29 +27,6 @@ const Login = () => {
     mode: 'onChange',
   });
 
-  const onSubmit = async (data) => {
-    let loginUser = null;
-    try {
-      const user = await axios.get(`http://localhost:3001/users?userID=${data.userID}`);
-      loginUser = user.data;
-      if (loginUser.length === 0) {
-        toast.error('로그인에 실패했습니다. 아이디를 확인해주세요.');
-      }
-    } catch (error) {
-      toast.error(`로그인 중에 문제가 발생했습니다. ${error}`);
-    }
-    if (loginUser[0].password === data.password) {
-      useUserStore.setState({ loginUser: loginUser[0] });
-      navigate('/', {
-        state: {
-          toastMessage: `로그인에 성공하였습니다!`,
-        },
-      });
-    } else {
-      toast.error('로그인에 실패했습니다, 비밀번호가 다릅니다.');
-    }
-  };
-
   return (
     <Container>
       <Head>
@@ -57,7 +34,7 @@ const Login = () => {
         <h2>Sign In</h2>
         <AnimateRight />
       </Head>
-      <LoginForm onSubmit={handleSubmit(onSubmit)}>
+      <LoginForm onSubmit={handleSubmit((data) => handleLogin(data, toast, navigate))}>
         <Input type="text" placeholder="UserID" {...register('userID')} />
         {errors.userID && <ErrorText>{errors.userID.message}</ErrorText>}
         <Input type="password" placeholder="Password" {...register('password')} />

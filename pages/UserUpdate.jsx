@@ -2,7 +2,7 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import React, { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import UserStore from '../store/UserStore';
+import UserStore from '../store/UserStore.jsx';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
@@ -23,7 +23,7 @@ const useUserStore = UserStore;
 const UserUpdate = () => {
   const navigate = useNavigate();
   const loginUser = useUserStore((state) => state.loginUser);
-  const { handleUpdate, handleDelete } = useUserStore();
+  const { handleDelete, updateSubmit } = useUserStore();
 
   const {
     register,
@@ -39,33 +39,13 @@ const UserUpdate = () => {
       phone: loginUser.phone,
     },
   });
-  const onSubmit = async (data) => {
-    if (data.password !== data.passwordCheck) {
-      return toast.warning(
-        <>
-          비밀번호가 일치하지 않습니다. <br />
-          비밀번호는 6자 이상이어야 합니다.
-        </>
-      );
-    }
-    const userData = {
-      userName: data.userName,
-      userID: data.userID,
-      nickName: data.nickName,
-      phone: data.phone,
-      password: data.password,
-      userNo: Date.now(),
-      id: loginUser.id,
-    };
-    handleUpdate(userData, navigate);
-  };
 
   return (
     <>
       <Wrapper>
         <Image src={(loginUser && loginUser.image) || '/src/images/default.png'} alt="미리보기" />
         <h1 style={{ marginTop: '20px' }}>회원정보 변경</h1>
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit((data) => updateSubmit(data, toast, navigate))}>
           <Body>
             <Line>
               <Title>이름</Title>

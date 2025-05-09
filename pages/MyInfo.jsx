@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import UserStore from '../store/UserStore';
+import UserStore from '../store/UserStore.jsx';
 
 const useUserStore = UserStore;
 const MyInfo = () => {

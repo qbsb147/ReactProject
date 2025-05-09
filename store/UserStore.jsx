@@ -230,6 +230,70 @@ const UserStore = create((set, get) => ({
         }
       });
   },
+
+  handleLogin: async (data, toast, navigate) => {
+    let loginUser = null;
+    try {
+      const user = await axios.get(`http://localhost:3001/users?userID=${data.userID}`);
+      loginUser = user.data;
+      if (loginUser.length === 0) {
+        toast.error('로그인에 실패했습니다. 아이디를 확인해주세요.');
+      }
+    } catch (error) {
+      toast.error(`로그인 중에 문제가 발생했습니다. ${error}`);
+    }
+    if (loginUser[0].password === data.password) {
+      set({ loginUser: loginUser[0] });
+      navigate('/', {
+        state: {
+          toastMessage: `로그인에 성공하였습니다!`,
+        },
+      });
+    } else {
+      toast.error('로그인에 실패했습니다, 비밀번호가 다릅니다.');
+    }
+  },
+  insertUser: async (data, navigate, toast) => {
+    try {
+      if (get().uniqueId) {
+        const userData = {
+          ...data,
+          userNo: Date.now(),
+        };
+        await axios.post('http://localhost:3001/users', userData);
+        navigate('/login', {
+          state: {
+            toastMessage: `환영합니다! ${data.userName}님`,
+          },
+        });
+      } else {
+        toast.warning('아이디 중복 확인을 해주세요.');
+      }
+    } catch (error) {
+      toast.error('회원가입에 실패했습니다. 재시도해주세요');
+    }
+  },
+
+  updateSubmit: async (data, toast, navigate) => {
+    if (data.password !== data.passwordCheck) {
+      return toast.warning(
+        <>
+          비밀번호가 일치하지 않습니다. <br />
+          비밀번호는 6자 이상이어야 합니다.
+        </>
+      );
+    }
+    const userData = {
+      userName: data.userName,
+      userID: data.userID,
+      nickName: data.nickName,
+      phone: data.phone,
+      password: data.password,
+      userNo: Date.now(),
+      id: get().loginUser.id,
+    };
+    get().handleUpdate(userData, navigate);
+  },
 }));
 
 export default UserStore;

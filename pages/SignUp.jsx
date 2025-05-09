@@ -5,7 +5,7 @@ import styled, { keyframes } from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import UserStore from '../store/UserStore';
+import UserStore from '../store/UserStore.jsx';
 import { toast } from 'react-toastify';
 
 const schema = yup.object().shape({
@@ -27,7 +27,7 @@ const useUserStore = UserStore;
 
 const SingUp = () => {
   const navigate = useNavigate();
-  const { uniqueId, idCheck } = useUserStore();
+  const { idCheck, insertUser } = useUserStore();
 
   const {
     register,
@@ -39,29 +39,8 @@ const SingUp = () => {
     mode: 'onChange',
   });
 
-  const insertUser = async (data) => {
-    try {
-      if (uniqueId) {
-        const userData = {
-          ...data,
-          userNo: Date.now(),
-        };
-        await axios.post('http://localhost:3001/users', userData);
-        navigate('/login', {
-          state: {
-            toastMessage: `환영합니다! ${data.userName}님`,
-          },
-        });
-      } else {
-        toast.warning('아이디 중복 확인을 해주세요.');
-      }
-    } catch (error) {
-      toast.error('회원가입에 실패했습니다. 재시도해주세요');
-    }
-  };
-
   return (
-    <JoinForm onSubmit={handleSubmit(insertUser)}>
+    <JoinForm onSubmit={handleSubmit((data) => insertUser(data, navigate, toast))}>
       <Head>회원가입</Head>
       <Input type="text" placeholder="UserName" {...register('userName')} />
       {errors.userName && <ErrorText>{errors.userName.message}</ErrorText>}
