@@ -9,18 +9,19 @@ import UserStore from '../store/UserStore.jsx';
 import { toast } from 'react-toastify';
 
 const schema = yup.object().shape({
-  userName: yup.string().required('이름을 입력하세요'),
-  userID: yup.string().required('아이디를 입력하세요'),
-  password: yup.string().min(6, '비밀번호는 최소 6자 이상이어야 합니다.').required('비밀번호을 입력하세요'),
+  user_name: yup.string().required('이름을 입력하세요'),
+  user_id: yup.string().required('아이디를 입력하세요'),
+  user_pwd: yup.string().min(6, '비밀번호는 최소 6자 이상이어야 합니다.').required('비밀번호을 입력하세요'),
   passwordCheck: yup
     .string()
-    .oneOf([yup.ref('password'), null], '비밀번호가 일치하지 않습니다.')
+    .oneOf([yup.ref('user_pwd'), null], '비밀번호가 일치하지 않습니다.')
     .required('비밀번호 확인을 입력하세요.'),
-  nickName: yup.string().required('닉네임을 설정해주세요.'),
+  user_nickname: yup.string().required('닉네임을 설정해주세요.'),
   phone: yup
     .string()
     .matches(/^01[0-9]-\d{3,4}-\d{4}$/, '전화번호가 유효하지 않습니다.')
     .required('전화번호를 입력하세요.'),
+  age: yup.string().required('나이를 입력하세요'),
 });
 
 const useUserStore = UserStore;
@@ -43,29 +44,49 @@ const SingUp = () => {
   return (
     <JoinForm onSubmit={handleSubmit((data) => insertUser(data, navigate, toast))}>
       <Head>회원가입</Head>
-      <Input type="text" placeholder="UserName" {...register('userName')} />
-      {errors.userName && <ErrorText>{errors.userName.message}</ErrorText>}
+      <Input type="text" placeholder="UserName" {...register('user_name')} />
+      {errors.user_name && <ErrorText>{errors.user_name.message}</ErrorText>}
       <ID>
-        <Input type="text" placeholder="UserId" {...register('userID')} />
-        <Check type="button" onClick={() => idCheck(getValues('userID'))}>
+        <Input type="text" placeholder="UserId" {...register('user_id')} />
+        <Check type="button" onClick={() => idCheck(getValues('user_id'))}>
           중복확인
         </Check>
       </ID>
-      {errors.userID && <ErrorText>{errors.userID.message}</ErrorText>}
-      <Input type="password" placeholder="Password" {...register('password')} />
-      {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
+      {errors.user_id && <ErrorText>{errors.user_id.message}</ErrorText>}
+      <Input type="password" placeholder="Password" {...register('user_pwd')} />
+      {errors.user_pwd && <ErrorText>{errors.user_pwd.message}</ErrorText>}
       <Input type="password" placeholder="PasswordCheck" {...register('passwordCheck')} />
       {errors.passwordCheck && <ErrorText>{errors.passwordCheck.message}</ErrorText>}
-      <Input type="text" placeholder="NickName" {...register('nickName')} />
-      {errors.nickName && <ErrorText>{errors.nickName.message}</ErrorText>}
+      <Input type="text" placeholder="NickName" {...register('user_nickname')} />
+      {errors.user_nickname && <ErrorText>{errors.user_nickname.message}</ErrorText>}
       <Input type="text" placeholder="Phone" {...register('phone')} />
       {errors.phone && <ErrorText>{errors.phone.message}</ErrorText>}
+      <Input type="number" placeholder="Age" {...register('age')} />
+      {errors.age && <ErrorText>{errors.age.message}</ErrorText>}
+      <div>
+        <Label>
+          <input type="radio" value="M" {...register('gender')} />
+          남성
+        </Label>
+
+        <Label>
+          <input type="radio" value="F" {...register('gender')} />
+          여성
+        </Label>
+      </div>
+
+      {errors.gender && <ErrorText>{errors.gender.message}</ErrorText>}
       <Submit type="submit">JOIN</Submit>
     </JoinForm>
   );
 };
 
 export default SingUp;
+
+const Label = styled.label`
+  color: #333;
+  display: flex;
+`;
 
 const ErrorText = styled.p`
   font-size: 12px;
