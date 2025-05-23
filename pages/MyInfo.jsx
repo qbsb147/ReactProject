@@ -17,15 +17,15 @@ const MyInfo = () => {
           <Body>
             <Line>
               <Title>이름</Title>
-              <Input value={loginUser.userName} readOnly />
+              <Input value={loginUser.user_name} readOnly />
             </Line>
             <Line>
               <Title>아이디</Title>
-              <Input value={loginUser.userID} readOnly />
+              <Input value={loginUser.user_id} readOnly />
             </Line>
             <Line>
               <Title>닉네임</Title>
-              <Input value={loginUser.nickName} readOnly />
+              <Input value={loginUser.user_nickname} readOnly />
             </Line>
             <Line>
               <Title>연락처</Title>
@@ -34,7 +34,7 @@ const MyInfo = () => {
           </Body>
           <Footer>
             <Modify to="/userUpdate">수정하기</Modify>
-            <Delete type="button" onClick={() => handleDelete(loginUser.id, navigate)}>
+            <Delete type="button" onClick={() => handleDelete(loginUser.user_no, navigate)}>
               삭제하기
             </Delete>
           </Footer>

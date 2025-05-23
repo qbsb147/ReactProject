@@ -43,11 +43,11 @@ const UserStore = create((set, get) => ({
     }
   },
 
-  deleteUser: async (id) => {
+  deleteUser: async (user_no) => {
     set({ loading: true, error: null });
 
     try {
-      const response = await axios.delete(`http://localhost:8888/api/members/${id}`);
+      const response = await axios.delete(`http://localhost:8888/api/members/${user_no}`);
       set(() => ({
         loading: false,
       }));
@@ -59,11 +59,11 @@ const UserStore = create((set, get) => ({
     }
   },
 
-  updateUser: async (id, userData) => {
+  updateUser: async (user_no, userData) => {
     set({ loading: true, error: null });
 
     try {
-      const response = await axios.put(`http://localhost:8888/api/members/${id}`, userData);
+      const response = await axios.put(`http://localhost:8888/api/members/${user_no}`, userData);
       set(() => ({
         loading: false,
       }));
@@ -75,7 +75,7 @@ const UserStore = create((set, get) => ({
     }
   },
 
-  handleDelete: async (id, navigate) => {
+  handleDelete: async (user_no, navigate) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -86,7 +86,7 @@ const UserStore = create((set, get) => ({
     swalWithBootstrapButtons
       .fire({
         title: '정말 삭제하겠습니까?',
-        input: 'user_pwd',
+        input: 'password',
         text: '확인을 위해 비밀번호를 입력해주세요.',
         icon: 'warning',
         showCancelButton: true,
@@ -96,11 +96,11 @@ const UserStore = create((set, get) => ({
         reverseButtons: true,
         preConfirm: async (user_pwd) => {
           try {
-            const resUser = await axios.get(`http://localhost:8888/api/members?id=${id}`);
-            const user = resUser.data[0];
+            const resUser = await axios.get(`http://localhost:8888/api/members/${user_no}`);
+            const user = resUser.data;
             if (String(user.user_pwd) === String(user_pwd)) {
-              set({ deleteUserId: id });
-              const response = await get().deleteUser(id);
+              set({ deleteUserId: user_no });
+              const response = await get().deleteUser(user_no);
               set({ deleteUserId: null });
               return response.data;
             } else {
@@ -147,7 +147,7 @@ const UserStore = create((set, get) => ({
     swalWithBootstrapButtons
       .fire({
         title: '정말 수정하겠습니까?',
-        input: 'user_pwd',
+        input: 'password',
         text: '확인을 위해 비밀번호를 입력해주세요.',
         icon: 'warning',
         showCancelButton: true,
@@ -157,11 +157,11 @@ const UserStore = create((set, get) => ({
         reverseButtons: true,
         preConfirm: async (user_pwd) => {
           try {
-            const resUser = await axios.get(`http://localhost:8888/api/members?id=${userData.id}`);
-            const user = resUser.data[0];
+            const resUser = await axios.get(`http://localhost:8888/api/members/${userData.user_no}`);
+            const user = resUser.data;
             if (String(user.user_pwd) === String(user_pwd)) {
               set({ updateUserId: userData.id });
-              const response = await get().updateUser(userData.id, userData);
+              const response = await get().updateUser(userData.user_no, userData);
               set({ updateUserId: null });
               return response.data;
             } else {
@@ -243,8 +243,8 @@ const UserStore = create((set, get) => ({
     } catch (error) {
       toast.error(`로그인 중에 문제가 발생했습니다. ${error}`);
     }
-    if (loginUser[0].user_pwd === data.user_pwd) {
-      set({ loginUser: loginUser[0] });
+    if (loginUser.user_pwd === data.user_pwd) {
+      set({ loginUser: loginUser });
       navigate('/', {
         state: {
           toastMessage: `로그인에 성공하였습니다!`,
@@ -283,13 +283,12 @@ const UserStore = create((set, get) => ({
       );
     }
     const userData = {
+      user_no: data.user_no,
       user_name: data.user_name,
       user_id: data.user_id,
       user_nickname: data.user_nickname,
       phone: data.phone,
       user_pwd: data.user_pwd,
-      user_no: Date.now(),
-      id: get().loginUser.id,
     };
     get().handleUpdate(userData, navigate);
   },

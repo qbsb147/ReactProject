@@ -8,11 +8,11 @@ import * as yup from 'yup';
 import { toast } from 'react-toastify';
 
 const schema = yup.object().shape({
-  userName: yup.string().required('이름을 입력하세요'),
-  userID: yup.string().required('아이디를 입력하세요'),
-  password: yup.string().required('비밀번호를 입력하세요'),
+  user_name: yup.string().required('이름을 입력하세요'),
+  user_id: yup.string().required('아이디를 입력하세요'),
+  user_pwd: yup.string().required('비밀번호를 입력하세요'),
   passwordCheck: yup.string().required('비밀번호 확인을 입력하세요.'),
-  nickName: yup.string().required('닉네임을 설정해주세요.'),
+  user_nickname: yup.string().required('닉네임을 설정해주세요.'),
   phone: yup
     .string()
     .matches(/^01[0-9]-\d{3,4}-\d{4}$/, '전화번호가 유효하지 않습니다.')
@@ -34,9 +34,10 @@ const UserUpdate = () => {
     resolver: yupResolver(schema),
     mode: 'onChange',
     defaultValues: {
-      userName: loginUser.userName,
-      userID: loginUser.userID,
-      nickName: loginUser.nickName,
+      user_no: loginUser.user_no,
+      user_name: loginUser.user_name,
+      user_id: loginUser.user_id,
+      user_nickname: loginUser.user_nickname,
       phone: loginUser.phone,
     },
   });
@@ -50,15 +51,15 @@ const UserUpdate = () => {
           <Body>
             <Line>
               <Title>이름</Title>
-              <Input type="text" {...register('userName')} />
+              <Input type="text" {...register('user_name')} />
             </Line>
             <Line>
               <Title>아이디</Title>
-              <Input type="text" {...register('userID')} />
+              <Input type="text" {...register('user_id')} />
             </Line>
             <Line>
               <Title>닉네임</Title>
-              <Input type="text" {...register('nickName')} />
+              <Input type="text" {...register('user_nickname')} />
             </Line>
             <Line>
               <Title>연락처</Title>
@@ -69,7 +70,7 @@ const UserUpdate = () => {
                 새로운
                 <br /> 비밀번호
               </Title>
-              <Input type="password" {...register('password')} />
+              <Input type="password" {...register('user_pwd')} />
             </Line>
             <Line>
               <Title>
@@ -84,7 +85,7 @@ const UserUpdate = () => {
             <Delete
               type="button"
               onClick={() => {
-                handleDelete(loginUser.id, navigate);
+                handleDelete(loginUser.user_no, navigate);
               }}
             >
               삭제하기

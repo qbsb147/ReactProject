@@ -10,8 +10,8 @@ import UserStore from '../store/UserStore.jsx';
 const useUserStore = UserStore;
 
 const schema = yup.object().shape({
-  userID: yup.string().required('아이디를 입력하세요'),
-  password: yup.string().min(6, '비밀번호는 최소 6자 이상이어야 합니다.').required('비밀번호를 입력해주세요.'),
+  user_id: yup.string().required('아이디를 입력하세요'),
+  user_pwd: yup.string().min(6, '비밀번호는 최소 6자 이상이어야 합니다.').required('비밀번호를 입력해주세요.'),
 });
 
 const Login = () => {
@@ -35,10 +35,10 @@ const Login = () => {
         <AnimateRight />
       </Head>
       <LoginForm onSubmit={handleSubmit((data) => handleLogin(data, toast, navigate))}>
-        <Input type="text" placeholder="UserID" {...register('userID')} />
-        {errors.userID && <ErrorText>{errors.userID.message}</ErrorText>}
-        <Input type="password" placeholder="Password" {...register('password')} />
-        {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
+        <Input type="text" placeholder="UserID" {...register('user_id')} />
+        {errors.user_id && <ErrorText>{errors.user_id.message}</ErrorText>}
+        <Input type="password" placeholder="Password" {...register('user_pwd')} />
+        {errors.user_pwd && <ErrorText>{errors.user_pwd.message}</ErrorText>}
         <Nav>
           <Button type="submit">Login</Button>
           <StyledLink to="/signUp">Sign Up</StyledLink>
