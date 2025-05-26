@@ -38,7 +38,9 @@ const UserUpdate = () => {
       user_name: loginUser.user_name,
       user_id: loginUser.user_id,
       user_nickname: loginUser.user_nickname,
+      age: loginUser.age,
       phone: loginUser.phone,
+      gender: loginUser.gender,
     },
   });
 
@@ -64,6 +66,23 @@ const UserUpdate = () => {
             <Line>
               <Title>연락처</Title>
               <Input type="text" {...register('phone')} />
+            </Line>
+            <Line>
+              <Title>나이</Title>
+              <Input type="number" {...register('age')} />
+            </Line>
+            <Line>
+              <Title>성별</Title>
+              <InRight>
+                <Label>
+                  <input type="radio" value="M" {...register('gender')} />
+                  남성
+                </Label>
+                <Label>
+                  <input type="radio" value="F" {...register('gender')} />
+                  여성
+                </Label>
+              </InRight>
             </Line>
             <Line>
               <Title>
@@ -99,11 +118,32 @@ const UserUpdate = () => {
 
 export default UserUpdate;
 
+const InRight = styled.div`
+  display: flex;
+  height: 100%;
+  width: 75%;
+  background: none;
+  border: none;
+  border-left: 1px solid #424557;
+  color: #b0b0b0;
+  font-size: 20px;
+  letter-spacing: 2px;
+  &:focus {
+    outline: none; /* 포커스 시 외곽선 제거 */
+    background: #4a4c5a;
+  }
+`;
+
+const Label = styled.label`
+  color: #eee;
+  display: flex;
+`;
+
 const Wrapper = styled.div`
   border-top: 3px solid red;
   background: #242734;
   width: 400px;
-  height: 600px;
+  height: 700px;
   position: relative;
   display: flex;
   justify-content: center;

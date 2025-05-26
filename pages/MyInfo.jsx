@@ -31,6 +31,17 @@ const MyInfo = () => {
               <Title>연락처</Title>
               <Input value={loginUser.phone} readOnly />
             </Line>
+            <Line>
+              <Title>나이</Title>
+              <Input value={loginUser.age} readOnly />
+            </Line>
+            <Line>
+              <Title>성별</Title>
+              <Input
+                value={loginUser.gender === 'M' ? '남성' : loginUser.gender === 'W' ? '여성' : '알 수 없음'}
+                readOnly
+              />
+            </Line>
           </Body>
           <Footer>
             <Modify to="/userUpdate">수정하기</Modify>

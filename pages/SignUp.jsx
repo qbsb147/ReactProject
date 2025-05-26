@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { useForm } from 'react-hook-form';
@@ -22,6 +22,10 @@ const schema = yup.object().shape({
     .matches(/^01[0-9]-\d{3,4}-\d{4}$/, '전화번호가 유효하지 않습니다.')
     .required('전화번호를 입력하세요.'),
   age: yup.string().required('나이를 입력하세요'),
+  image: yup.mixed().test('fileOptional', '이미지 형식이 잘못되었습니다.', (value) => {
+    if (!value || value.length === 0) return true; // 없으면 OK (optional)
+    return value[0] instanceof File; // 있으면 유효한 파일인지 검사
+  }),
 });
 
 const useUserStore = UserStore;
@@ -30,6 +34,12 @@ const SingUp = () => {
   const navigate = useNavigate();
   const idCheck = useUserStore((state) => state.idCheck);
   const insertUser = useUserStore((state) => state.insertUser);
+  const fileInputRef = useRef(null);
+  const [preview, setPreview] = useState(null);
+
+  const handleClick = () => {
+    fileInputRef.current.click();
+  };
 
   const {
     register,
@@ -41,9 +51,32 @@ const SingUp = () => {
     mode: 'onChange',
   });
 
+  const handleChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      setPreview(reader.result);
+    };
+  };
+
   return (
     <JoinForm onSubmit={handleSubmit((data) => insertUser(data, navigate, toast))}>
       <Head>회원가입</Head>
+      <input
+        type="file"
+        accept="/src/image/*"
+        ref={(e) => {
+          fileInputRef.current = e;
+          register('image').ref(e);
+        }}
+        onChange={handleChange}
+        style={{ display: 'none' }}
+      />
+      <Image src={preview || '/src/images/default.png'} alt="미리보기" onClick={handleClick} />
       <Input type="text" placeholder="UserName" {...register('user_name')} />
       {errors.user_name && <ErrorText>{errors.user_name.message}</ErrorText>}
       <ID>
@@ -183,6 +216,14 @@ const Check = styled.button`
     background: rgb(8, 189, 212);
     color: #fff;
   }
+`;
+
+const Image = styled.img`
+  margin-top: 20px;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  padding: 0, auto;
 `;
 
 const Submit = styled.button`

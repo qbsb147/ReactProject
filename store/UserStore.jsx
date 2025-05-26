@@ -258,7 +258,17 @@ const UserStore = create((set, get) => ({
   insertUser: async (data, navigate, toast) => {
     try {
       if (get().uniqueId) {
-        const userData = data;
+        const userData = {
+          user_name: data.user_name,
+          user_id: data.user_id,
+          user_pwd: data.user_pwd,
+          passwordCheck: data.passwordCheck,
+          user_nickname: data.user_nickname,
+          phone: data.phone,
+          age: data.age,
+          gender: data.gender,
+          image: data.image[0] || null,
+        };
         await axios.post('http://localhost:8888/api/members', userData);
         navigate('/login', {
           state: {
