@@ -51,31 +51,24 @@ const SingUp = () => {
     mode: 'onChange',
   });
 
-  const handleChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onload = () => {
-      setPreview(reader.result);
-    };
-  };
 
   return (
     <JoinForm onSubmit={handleSubmit((data) => insertUser(data, navigate, toast))}>
       <Head>회원가입</Head>
-      <input
-        type="file"
-        accept="/src/image/*"
-        ref={(e) => {
-          fileInputRef.current = e;
-          register('image').ref(e);
-        }}
-        onChange={handleChange}
-        style={{ display: 'none' }}
-      />
+        <input
+          type="file"
+          {...register('image', {
+            onChange: (e) => {
+              const file = e.target.files[0];
+              if (file) {
+                const reader = new FileReader();
+                reader.onload = () => setPreview(reader.result);
+                reader.readAsDataURL(file);
+              }
+            }
+          })}
+          style={{ display: 'none' }}
+        />
       <Image src={preview || '/src/images/default.png'} alt="미리보기" onClick={handleClick} />
       <Input type="text" placeholder="UserName" {...register('user_name')} />
       {errors.user_name && <ErrorText>{errors.user_name.message}</ErrorText>}

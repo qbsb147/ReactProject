@@ -16,7 +16,6 @@ const UserStore = create((set, get) => ({
     try {
       const response = await axios.get('http://localhost:8888/api/members');
       const userList = response.data;
-      console.log(userList);
       const sameUser = userList.find((user) => String(user.user_id) === String(inputId));
       if (sameUser) {
         set({ uniqueId: false });
@@ -197,7 +196,7 @@ const UserStore = create((set, get) => ({
         }
       });
   },
-  handleLogout: () => {
+  handleLogout: (navigate) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -217,11 +216,13 @@ const UserStore = create((set, get) => ({
       })
       .then((result) => {
         if (result.isConfirmed) {
+
           set({ loginUser: null });
           swalWithBootstrapButtons.fire({
             title: '로그아웃했습니다.',
             icon: 'success',
-          });
+          }); 
+                    navigate('/');
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
             title: '로그아웃하지 않았습니다.',
@@ -235,7 +236,7 @@ const UserStore = create((set, get) => ({
   handleLogin: async (data, toast, navigate) => {
     let loginUser = null;
     try {
-      const user = await axios.get(`http://localhost:8888/api/members?user_id=${data.user_id}`);
+      const user = await axios.get(`http://localhost:8888/api/members?userId=${data.user_id}`);
       loginUser = user.data;
       if (loginUser.length === 0) {
         toast.error('로그인에 실패했습니다. 아이디를 확인해주세요.');
@@ -256,20 +257,28 @@ const UserStore = create((set, get) => ({
   },
 
   insertUser: async (data, navigate, toast) => {
+    const formData = new FormData();
+    console.log('image:', data.image);
+        // 파일을 FormData에 추가
+    if (data.image && data.image.length > 0) {
+      formData.append('file', data.image[0]);
+    } else {
+      // 파일이 없을 경우 메시지 표시
+      toast.error('파일을 선택해주세요!');
+      return;
+    }
+
     try {
       if (get().uniqueId) {
-        const userData = {
-          user_name: data.user_name,
-          user_id: data.user_id,
-          user_pwd: data.user_pwd,
-          passwordCheck: data.passwordCheck,
-          user_nickname: data.user_nickname,
-          phone: data.phone,
-          age: data.age,
-          gender: data.gender,
-          image: data.image[0] || null,
-        };
-        await axios.post('http://localhost:8888/api/members', userData);
+        
+        formData.append('user_name', data.user_name);
+        formData.append('user_id', data.user_id);
+        formData.append('user_pwd', data.user_pwd);
+        formData.append('user_nickname', data.user_nickname);
+        formData.append('phone', data.phone);
+        formData.append('age', data.age);
+        formData.append('gender', data.gender);
+        await axios.post('http://localhost:8888/api/members', formData);
         navigate('/login', {
           state: {
             toastMessage: `환영합니다! ${data.user_name}님`,

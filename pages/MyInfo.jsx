@@ -11,7 +11,7 @@ const MyInfo = () => {
   return (
     <>
       <Wrapper>
-        <Image src={(loginUser && loginUser.image) || '/src/images/default.png'} alt="미리보기" />
+        <Image src={(loginUser && `http://localhost:8888/images/${loginUser.change_name}`) || 'http://localhost:8888/images/default.png'} alt="미리보기" />
 
         <Form>
           <Body>
