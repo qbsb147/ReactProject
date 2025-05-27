@@ -9,6 +9,13 @@ import useMovieStore from '../store/MovieStore';
 const About = () => {
   const getMovies = useMovieStore((state) => state.getMovies);
   const movies = useMovieStore((state) => state.movies);
+  const page = useMovieStore((state) => state.page);
+  const hasMore = useMovieStore((state) => state.hasMore);
+  const loading = useMovieStore((state) => state.loading);
+
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+  });
 
   useEffect(() => {
     AOS.init({
@@ -22,17 +29,33 @@ const About = () => {
   }, []);
 
   useEffect(() => {
-    getMovies();
+    getMovies(0); // 첫 페이지 초기 로드
   }, [getMovies]);
+
+  useEffect(() => {
+    if (inView && hasMore && !loading) {
+      getMovies(page + 1);
+    }
+  }, [inView, hasMore, loading, getMovies, page]);
 
   return (
     <Container>
       {movies.map((movie, index) => (
-        <FadeInCard key={movie.id} isAlignRight={index % 2 === 1}>
+        <FadeInCard
+          key={movie.movie_no}
+          isAlignRight={index % 2 === 1}
+          ref={index === movies.length - 1 ? ref : null} // 마지막 카드에만 ref 설정
+        >
           <Card>
-            <h1>{movie.title}</h1>
-            <p>{movie.content}</p>
-            <img src={movie.image || 'src/images/default.jpg'} alt="예시 이미지" width={'600px'} />
+            <h1>{movie.movie_title}</h1>
+            <p>{movie.movie_content}</p>
+            <img
+              src={
+                movie.change_name ? `http://localhost:8888/${movie.change_name}` : 'http://localhost:8888/default.jpg'
+              }
+              alt="예시 이미지"
+              width="600px"
+            />
           </Card>
         </FadeInCard>
       ))}
@@ -40,7 +63,7 @@ const About = () => {
   );
 };
 
-const FadeInCard = ({ children, isAlignRight }) => {
+const FadeInCard = ({ children, isAlignRight, innerRef }) => {
   const [ref, inView] = useInView({
     threshold: 0.3,
     triggerOnce: false,
@@ -48,7 +71,7 @@ const FadeInCard = ({ children, isAlignRight }) => {
 
   return (
     <motion.div
-      ref={ref}
+      ref={innerRef || ref} // innerRef가 전달되면 그것을 사용하고, 그렇지 않으면 useInView의 ref 사용
       initial={{ opacity: 0, x: isAlignRight ? 100 : -100 }}
       animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: isAlignRight ? 100 : -100 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}

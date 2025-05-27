@@ -48,7 +48,7 @@ const Sidebar = ({ onToggleTheme }) => {
         </li>
         <li>
           {loginUser ? (
-            <ALink onClick={handleLogout(navigate)}>
+            <ALink onClick={() => handleLogout(location)}>
               <svg width="100%" height="50" viewBox="0 0 200 50" preserveAspectRatio="none">
                 <rect x="0" y="0" width="100%" height="100%" />
               </svg>

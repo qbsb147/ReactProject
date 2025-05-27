@@ -1,5 +1,5 @@
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import UserStore from '../store/UserStore.jsx';
@@ -25,7 +25,15 @@ const UserUpdate = () => {
   const loginUser = useUserStore((state) => state.loginUser);
   const handleDelete = useUserStore((state) => state.handleDelete);
   const updateSubmit = useUserStore((state) => state.updateSubmit);
+  useEffect(() => {
+    if (!loginUser) {
+      navigate('/error');
+    }
+  }, [loginUser, navigate]);
 
+  if (!loginUser) {
+    return null;
+  }
   const {
     register,
     handleSubmit,
@@ -47,7 +55,10 @@ const UserUpdate = () => {
   return (
     <>
       <Wrapper>
-        <Image src={(loginUser && loginUser.image) || '/src/images/default.png'} alt="미리보기" />
+        <Image
+          src={(loginUser && `http://localhost:8888/${loginUser.change_name}`) || 'http://localhost:8888/default.png'}
+          alt="미리보기"
+        />
         <h1 style={{ marginTop: '20px' }}>회원정보 변경</h1>
         <Form onSubmit={handleSubmit((data) => updateSubmit(data, toast, navigate))}>
           <Body>

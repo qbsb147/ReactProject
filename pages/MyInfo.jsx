@@ -1,5 +1,5 @@
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import UserStore from '../store/UserStore.jsx';
 
@@ -8,10 +8,22 @@ const MyInfo = () => {
   const loginUser = useUserStore((state) => state.loginUser);
   const handleDelete = useUserStore((state) => state.handleDelete);
   const navigate = useNavigate();
+  useEffect(() => {
+    if (!loginUser) {
+      navigate('/error');
+    }
+  }, [loginUser, navigate]);
+
+  if (!loginUser) {
+    return null;
+  }
   return (
     <>
       <Wrapper>
-        <Image src={(loginUser && `http://localhost:8888/images/${loginUser.change_name}`) || 'http://localhost:8888/images/default.png'} alt="미리보기" />
+        <Image
+          src={(loginUser && `http://localhost:8888/${loginUser.change_name}`) || 'http://localhost:8888/default.png'}
+          alt="미리보기"
+        />
 
         <Form>
           <Body>

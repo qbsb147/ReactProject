@@ -22,15 +22,12 @@ const schema = yup.object().shape({
     .matches(/^01[0-9]-\d{3,4}-\d{4}$/, '전화번호가 유효하지 않습니다.')
     .required('전화번호를 입력하세요.'),
   age: yup.string().required('나이를 입력하세요'),
-  image: yup.mixed().test('fileOptional', '이미지 형식이 잘못되었습니다.', (value) => {
-    if (!value || value.length === 0) return true; // 없으면 OK (optional)
-    return value[0] instanceof File; // 있으면 유효한 파일인지 검사
-  }),
 });
 
 const useUserStore = UserStore;
 
 const SingUp = () => {
+  const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate();
   const idCheck = useUserStore((state) => state.idCheck);
   const insertUser = useUserStore((state) => state.insertUser);
@@ -51,24 +48,33 @@ const SingUp = () => {
     mode: 'onChange',
   });
 
-
   return (
-    <JoinForm onSubmit={handleSubmit((data) => insertUser(data, navigate, toast))}>
+    <JoinForm
+      onSubmit={handleSubmit((data) => {
+        if (!selectedFile) {
+          toast.error('파일을 선택해주세요!');
+          return;
+        }
+
+        insertUser(data, selectedFile, navigate, toast); // ✅ 파일 전달
+      })}
+    >
       <Head>회원가입</Head>
-        <input
-          type="file"
-          {...register('image', {
-            onChange: (e) => {
-              const file = e.target.files[0];
-              if (file) {
-                const reader = new FileReader();
-                reader.onload = () => setPreview(reader.result);
-                reader.readAsDataURL(file);
-              }
-            }
-          })}
-          style={{ display: 'none' }}
-        />
+      <input
+        type="file"
+        ref={fileInputRef}
+        name="image"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (file) {
+            setSelectedFile(file);
+            const reader = new FileReader();
+            reader.onload = () => setPreview(reader.result);
+            reader.readAsDataURL(file);
+          }
+        }}
+        style={{ display: 'none' }}
+      />
       <Image src={preview || '/src/images/default.png'} alt="미리보기" onClick={handleClick} />
       <Input type="text" placeholder="UserName" {...register('user_name')} />
       {errors.user_name && <ErrorText>{errors.user_name.message}</ErrorText>}

@@ -20,15 +20,15 @@ const MovieCard = ({ movie }) => {
         <Tbody>
           <Tr>
             <Td>제목</Td>
-            <Td2>{movie.title}</Td2>
+            <Td2>{movie.movie_title}</Td2>
           </Tr>
           <Tr>
             <Td>내용</Td>
-            <Td2>{movie.content}</Td2>
+            <Td2>{movie.movie_content}</Td2>
           </Tr>
           <Tr>
             <Td>평점</Td>
-            <Td2>{movie.star}</Td2>
+            <Td2>{movie.movie_grade}</Td2>
           </Tr>
           <Tr>
             <Td>감독</Td>
@@ -36,7 +36,7 @@ const MovieCard = ({ movie }) => {
           </Tr>
         </Tbody>
       </table>
-      {loginUser && loginUser.userID === movie.writer && (
+      {loginUser && loginUser.userId === movie.writer && (
         <Access>
           <CrackleButton style={{ fontSize: '20px' }} data-hover="수정">
             수정

@@ -196,7 +196,7 @@ const UserStore = create((set, get) => ({
         }
       });
   },
-  handleLogout: (navigate) => {
+  handleLogout: (location) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -216,13 +216,12 @@ const UserStore = create((set, get) => ({
       })
       .then((result) => {
         if (result.isConfirmed) {
-
           set({ loginUser: null });
           swalWithBootstrapButtons.fire({
             title: '로그아웃했습니다.',
             icon: 'success',
-          }); 
-                    navigate('/');
+          });
+          window.location.href = '/login';
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
             title: '로그아웃하지 않았습니다.',
@@ -256,21 +255,12 @@ const UserStore = create((set, get) => ({
     }
   },
 
-  insertUser: async (data, navigate, toast) => {
+  insertUser: async (data, file, navigate, toast) => {
     const formData = new FormData();
-    console.log('image:', data.image);
-        // 파일을 FormData에 추가
-    if (data.image && data.image.length > 0) {
-      formData.append('file', data.image[0]);
-    } else {
-      // 파일이 없을 경우 메시지 표시
-      toast.error('파일을 선택해주세요!');
-      return;
-    }
+    formData.append('file', file);
 
     try {
       if (get().uniqueId) {
-        
         formData.append('user_name', data.user_name);
         formData.append('user_id', data.user_id);
         formData.append('user_pwd', data.user_pwd);

@@ -4,28 +4,46 @@ import Swal from 'sweetalert2';
 
 const useMovieStore = create((set, get) => ({
   movies: [],
+  page: 0,
+  hasMore: true,
   loading: false,
   error: null,
   deleteMovieId: null,
 
-  getMovies: async () => {
-    set({ loading: true, error: null });
+  getMovies: async (page = 0) => {
+    set((state) => ({
+      ...state,
+      loading: true,
+      error: null,
+    }));
 
     try {
-      const response = await axios.get('http://localhost:3001/movies');
-      set({ movies: response.data, loading: false });
+      const response = await axios.get(`http://localhost:8888/api/movies`);
+      const newMovies = response.data.content;
+      const isLastPage = response.data.last;
+      console.log(response);
+      set((state) => ({
+        movies: [...state.movies, ...newMovies], // 기존 영화 + 새 영화
+        page: page,
+        hasMore: !isLastPage,
+        loading: false,
+      }));
     } catch (error) {
-      set({ loading: false, error: error.message });
+      set((state) => ({
+        ...state,
+        loading: false,
+        error: error.message,
+      }));
     }
   },
-  deleteMovie: async (id) => {
+  deleteMovie: async (movie_no) => {
     set({ loading: true, error: null });
 
     try {
-      await axios.delete(`http://localhost:3001/movies/${id}`);
+      await axios.delete(`http://localhost:8888/api/movies/${movie_no}`);
 
       set((state) => ({
-        movies: state.movies.filter((Movies) => Movies.id !== id),
+        movies: state.movies.filter((Movies) => Movies.movie_no !== movie_no),
         loading: false,
       }));
     } catch (error) {

@@ -33,11 +33,12 @@ function App() {
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/signUp" element={<SignUp />} />
-              <Route path="/" element={<Main />} />
+              <Route path="/about" element={<Main />} />
               <Route path="/movieDetail/:id" element={<MovieDetail />} />
               <Route path="/myInfo" element={<MyInfo />} />
+              <Route path="/error" element={<NotFound />} />
               <Route path="/userUpdate" element={<UserUpdate />} />
-              <Route path="/about" element={<About />} />
+              <Route path="/" element={<About />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Center>

@@ -20,16 +20,16 @@ const Main = () => {
   return (
     <Container>
       <GenreList>
-        <ShineButton style={{ width: '100%' }} onClick={() => setSelectedGenre('action')}>
+        <ShineButton style={{ width: '100%' }} onClick={() => setSelectedGenre('액션')}>
           액션
         </ShineButton>
-        <ShineButton style={{ width: '100%' }} onClick={() => setSelectedGenre('romance')}>
+        <ShineButton style={{ width: '100%' }} onClick={() => setSelectedGenre('로맨스')}>
           로맨스
         </ShineButton>
-        <ShineButton style={{ width: '100%' }} onClick={() => setSelectedGenre('comedy')}>
+        <ShineButton style={{ width: '100%' }} onClick={() => setSelectedGenre('코미디')}>
           코미디
         </ShineButton>
-        <ShineButton style={{ width: '100%' }} onClick={() => setSelectedGenre('documentary')}>
+        <ShineButton style={{ width: '100%' }} onClick={() => setSelectedGenre('다큐')}>
           다큐
         </ShineButton>
       </GenreList>
