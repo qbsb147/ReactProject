@@ -21,10 +21,15 @@ const schema = yup.object().shape({
 
 const useUserStore = UserStore;
 const UserUpdate = () => {
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const navigate = useNavigate();
   const loginUser = useUserStore((state) => state.loginUser);
   const handleDelete = useUserStore((state) => state.handleDelete);
   const updateSubmit = useUserStore((state) => state.updateSubmit);
+  const fileInputRef = useRef(null);
+  const [preview, setPreview] = useState(null);
+
   useEffect(() => {
     if (!loginUser) {
       navigate('/error');
@@ -52,15 +57,39 @@ const UserUpdate = () => {
     },
   });
 
+  const handleClick = () => {
+    fileInputRef.current.click();
+  };
+
   return (
     <>
       <Wrapper>
+        <input
+          type="file"
+          ref={fileInputRef}
+          name="image"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+              setSelectedFile(file);
+              const reader = new FileReader();
+              reader.onload = () => setPreview(reader.result);
+              reader.readAsDataURL(file);
+            }
+          }}
+          style={{ display: 'none' }}
+        />
         <Image
-          src={(loginUser && `http://localhost:8888/${loginUser.change_name}`) || 'http://localhost:8888/default.png'}
+          src={
+            preview ||
+            (loginUser && `http://localhost:8888/${loginUser.change_name}`) ||
+            'http://localhost:8888/default.png'
+          }
           alt="미리보기"
+          onClick={handleClick}
         />
         <h1 style={{ marginTop: '20px' }}>회원정보 변경</h1>
-        <Form onSubmit={handleSubmit((data) => updateSubmit(data, toast, navigate))}>
+        <Form onSubmit={handleSubmit((data) => updateSubmit(data, selectedFile, toast, navigate))}>
           <Body>
             <Line>
               <Title>이름</Title>
@@ -68,7 +97,7 @@ const UserUpdate = () => {
             </Line>
             <Line>
               <Title>아이디</Title>
-              <Input type="text" {...register('user_id')} />
+              <Input type="text" {...register('user_id')} readOnly />
             </Line>
             <Line>
               <Title>닉네임</Title>

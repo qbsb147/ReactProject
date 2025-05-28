@@ -75,7 +75,7 @@ const SingUp = () => {
         }}
         style={{ display: 'none' }}
       />
-      <Image src={preview || '/src/images/default.png'} alt="미리보기" onClick={handleClick} />
+      <Image src={preview || 'http://localhost:8888/default.png'} alt="미리보기" onClick={handleClick} />
       <Input type="text" placeholder="UserName" {...register('user_name')} />
       {errors.user_name && <ErrorText>{errors.user_name.message}</ErrorText>}
       <ID>

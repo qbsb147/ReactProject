@@ -156,11 +156,11 @@ const UserStore = create((set, get) => ({
         reverseButtons: true,
         preConfirm: async (user_pwd) => {
           try {
-            const resUser = await axios.get(`http://localhost:8888/api/members/${userData.user_no}`);
+            const resUser = await axios.get(`http://localhost:8888/api/members/${userData.get('user_no')}`);
             const user = resUser.data;
             if (String(user.user_pwd) === String(user_pwd)) {
-              set({ updateUserId: userData.id });
-              const response = await get().updateUser(userData.user_no, userData);
+              set({ updateUserId: userData.get('user_id') });
+              const response = await get().updateUser(userData.get('user_no'), userData);
               set({ updateUserId: null });
               return response.data;
             } else {
@@ -180,13 +180,14 @@ const UserStore = create((set, get) => ({
               title: '수정했습니다.',
               icon: 'success',
             })
-            .then(() => {
+            .then(async () => {
+              const user = await axios.get(`http://localhost:8888/api/members?userId=${userData.get('user_id')}`);
+              set({ loginUser: user.data });
               navigate('/myInfo', {
                 state: {
-                  toastMessage: `${userData.user_name}님 회원정보 수정이 완료되었습니다.`,
+                  toastMessage: `${userData.get('user_name')}님 회원정보 수정이 완료되었습니다.`,
                 },
               });
-              set({ loginUser: userData });
             });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
@@ -282,7 +283,7 @@ const UserStore = create((set, get) => ({
     }
   },
 
-  updateSubmit: async (data, toast, navigate) => {
+  updateSubmit: async (data, selectedFile, toast, navigate) => {
     if (data.user_pwd !== data.passwordCheck) {
       return toast.warning(
         <>
@@ -291,15 +292,15 @@ const UserStore = create((set, get) => ({
         </>
       );
     }
-    const userData = {
-      user_no: data.user_no,
-      user_name: data.user_name,
-      user_id: data.user_id,
-      user_nickname: data.user_nickname,
-      phone: data.phone,
-      user_pwd: data.user_pwd,
-    };
-    get().handleUpdate(userData, navigate);
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+    formData.append('user_no', data.user_no);
+    formData.append('user_name', data.user_name);
+    formData.append('user_id', data.user_id);
+    formData.append('user_nickname', data.user_nickname);
+    formData.append('phone', data.phone);
+    formData.append('user_pwd', data.user_pwd);
+    get().handleUpdate(formData, navigate);
   },
 }));
 
