@@ -10,7 +10,7 @@ const useMovieStore = create((set, get) => ({
   error: null,
   deleteMovieId: null,
 
-  getMovies: async (page = 0) => {
+  getMovies: async (page = 0, selectedGenre) => {
     set((state) => ({
       ...state,
       loading: true,
@@ -18,16 +18,21 @@ const useMovieStore = create((set, get) => ({
     }));
 
     try {
-      const response = await axios.get(`http://localhost:8888/api/movies`);
+      const response = await axios.get(`http://localhost:8888/api/movies`, {
+        params: {
+          genre: selectedGenre,
+          page: page,
+        },
+      });
       const newMovies = response.data.content;
       const isLastPage = response.data.last;
       console.log(response);
-      set((state) => ({
-        movies: [...state.movies, ...newMovies], // 기존 영화 + 새 영화
+      set({
+        movies: newMovies,
         page: page,
         hasMore: !isLastPage,
         loading: false,
-      }));
+      });
     } catch (error) {
       set((state) => ({
         ...state,
@@ -41,7 +46,6 @@ const useMovieStore = create((set, get) => ({
 
     try {
       await axios.delete(`http://localhost:8888/api/movies/${movie_no}`);
-
       set((state) => ({
         movies: state.movies.filter((Movies) => Movies.movie_no !== movie_no),
         loading: false,
@@ -51,7 +55,7 @@ const useMovieStore = create((set, get) => ({
     }
   },
 
-  handleDelete: async (id) => {
+  handleDelete: async (id, navigate) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',

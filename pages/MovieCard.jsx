@@ -15,7 +15,10 @@ const MovieCard = ({ movie }) => {
 
   return (
     <ShineDiv style={{ width: '100%', height: '100%', display: 'flex' }}>
-      <img style={{ height: '100%', width: '200px' }} src={movie.image || '/src/images/default.jpg'} />
+      <img
+        style={{ height: '100%', width: '200px' }}
+        src={movie.change_name ? `http://localhost:8888/${movie.change_name}` : 'http://localhost:8888/default.jpg'}
+      />
       <table>
         <Tbody>
           <Tr>
@@ -36,17 +39,17 @@ const MovieCard = ({ movie }) => {
           </Tr>
         </Tbody>
       </table>
-      {loginUser && loginUser.userId === movie.writer && (
+      {loginUser && loginUser.user_no === movie.writer_no && (
         <Access>
           <CrackleButton style={{ fontSize: '20px' }} data-hover="수정">
             수정
           </CrackleButton>
-          <CrackleButton style={{ fontSize: '20px' }} data-hover="삭제" onClick={() => handleDelete(movie.id)}>
+          <CrackleButton style={{ fontSize: '20px' }} data-hover="삭제" onClick={() => handleDelete(movie.movie_no)}>
             삭제
           </CrackleButton>
         </Access>
       )}
-      {deleteMovieId === movie.id && (
+      {deleteMovieId === movie.movie_no && (
         <LoadingOverlay>
           <div>삭제중...</div>
         </LoadingOverlay>

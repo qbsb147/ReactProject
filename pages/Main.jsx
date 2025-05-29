@@ -11,10 +11,10 @@ const Main = () => {
   const loading = useMovieStore((state) => state.loading);
   const getMovies = useMovieStore((state) => state.getMovies);
 
-  const [selectedGenre, setSelectedGenre] = useState('romance');
+  const [selectedGenre, setSelectedGenre] = useState('로맨스');
 
   useEffect(() => {
-    getMovies();
+    getMovies(0, selectedGenre);
   }, [getMovies]);
 
   return (
@@ -41,10 +41,10 @@ const Main = () => {
           </LoadingBox>
         ) : !error ? (
           movies
-            .filter((movie) => movie.genre === selectedGenre)
+            .filter((movie) => movie.genres && movie.genres.some((genre) => genre === selectedGenre))
             .map((movie) => (
-              <MovieList key={movie.id}>
-                <MovieCard movie={movie} onClick={() => navigator(`/detail/${movie.id}`)} />
+              <MovieList key={movie.movie_no}>
+                <MovieCard movie={movie} onClick={() => navigator(`/detail/${movie.movie_no}`)} />
               </MovieList>
             ))
         ) : (
