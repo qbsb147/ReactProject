@@ -81,8 +81,9 @@ Zustand 기반 상태 관리, Axios를 이용한 백엔드 API 연동, styled-co
 
 ## 🔗 참고
 
-* 개인 프로젝트
-* GitHub 저장소에 코드 업로드
+* 해당 프로젝트의 백엔드 프로젝트는
+https://github.com/qbsb147/reactbackend
+이 곳에 있습니다.
 
 ---
 
