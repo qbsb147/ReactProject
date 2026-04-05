@@ -16,7 +16,39 @@ Zustand 기반 상태 관리, Axios를 이용한 백엔드 API 연동, styled-co
 * styled-components (테마, 스타일링)
 ---
 ## 🖼️ 실행 화면
-<img src="./images/mainScreen.gif" width="400"/>
+
+### 메인 화면
+
+<img src="./images/main.gif" width="800"/>
+
+### 장르 선택
+
+<img src="./images/mainScreen.gif" width="800"/>
+
+### 무한 스크롤
+
+<img src="./images/autoscreen.gif" width="800"/>
+
+### 회원가입
+
+<img src="./images/signUp.gif" width="800"/>
+
+### 로그인
+
+<img src="./images/signIn.gif" width="800"/>
+
+### 정보 수정
+
+<img src="./images/update.gif" width="800"/>
+
+### 회원 탈퇴
+
+<img src="./images/delete.gif" width="800"/>
+
+### 잘못된 페이지
+
+<img src="./images/error.gif" width="800"/>
+
 ---
 
 ## 🏗 주요 기능
