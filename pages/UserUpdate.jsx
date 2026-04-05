@@ -67,7 +67,7 @@ const UserUpdate = () => {
         <input
           type="file"
           ref={fileInputRef}
-          name="image"
+          name="file"
           onChange={(e) => {
             const file = e.target.files?.[0];
             if (file) {
