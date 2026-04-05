@@ -14,7 +14,9 @@ Zustand 기반 상태 관리, Axios를 이용한 백엔드 API 연동, styled-co
 * Zustand (상태 관리)
 * Axios (API 통신)
 * styled-components (테마, 스타일링)
-
+---
+## 🖼️ 실행 화면
+<img src="./images/mainScreen.gif" width="400"/>
 ---
 
 ## 🏗 주요 기능
